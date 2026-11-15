@@ -34,3 +34,15 @@ func change_state(state_name : String):
 	current_state.enter()
 	
 	print("New State: ", state_name)
+
+func update(delta : float):
+	if not current_state:
+		return
+		
+	current_state.update(delta)
+
+func is_current_state(state_name : String) -> bool:
+	if not current_state:
+		return false
+		
+	return current_state.name == state_name

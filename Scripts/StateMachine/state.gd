@@ -6,6 +6,12 @@ var state_machine : StateMachine
 var entry_time : float
 var time_since_entry : float
 
+var fighter : Fighter:
+	get: return state_machine.fighter
+
+var input_buffer : InputBuffer:
+	get: return state_machine.input_buffer
+
 func initialise(state_machine : StateMachine):
 	self.state_machine = state_machine
 	

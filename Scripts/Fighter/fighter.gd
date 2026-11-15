@@ -2,9 +2,14 @@ class_name Fighter
 extends CharacterBody3D
 
 @export var player_id : int
+@export var opponent : Fighter
 
 @export var input_handler : InputHandler
 @export var input_buffer : InputBuffer
+@export var state_machine : StateMachine
+
+var forward_direction : int
+var move_velocity : Vector3
 
 func _physics_process(delta: float):
 	# Get input packet
@@ -14,7 +19,23 @@ func _physics_process(delta: float):
 	input_buffer.receive_input(input_packet)
 	
 	# Process the input in the state machine
+	state_machine.update(delta)
 	
 	# Update player's facing direction
+	_update_facing_direction()
 	
 	# Process movement
+	_movement(delta)
+
+func _update_facing_direction():
+	if global_position.x < opponent.global_position.x:
+		forward_direction = 1
+		rotation_degrees.y = 90
+	else:
+		forward_direction = -1
+		rotation_degrees.y = -90
+
+func _movement(delta : float):
+	velocity.x = move_velocity.x
+	velocity.y = move_velocity.y
+	move_and_slide()

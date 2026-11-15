@@ -28,7 +28,7 @@ mesh = SubResource("BoxMesh_gvo7x")
 shape = SubResource("BoxShape3D_gvo7x")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=831530007]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4990988, 7.2028193)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4049938, 4.0821447)
 fov = 50.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=881216935]
@@ -38,9 +38,11 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=393955402]
 environment = SubResource("Environment_gvo7x")
 
-[node name="Fighter" parent="." unique_id=607319556 instance=ExtResource("1_ebmjs")]
+[node name="Fighter" parent="." unique_id=607319556 node_paths=PackedStringArray("opponent") instance=ExtResource("1_ebmjs")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.8585353, 0.25396678, 0.09666538)
+opponent = NodePath("../Fighter2")
 
-[node name="Fighter2" parent="." unique_id=138749005 instance=ExtResource("1_ebmjs")]
+[node name="Fighter2" parent="." unique_id=138749005 node_paths=PackedStringArray("opponent") instance=ExtResource("1_ebmjs")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5118961, 0.25396678, 0.09666538)
 player_id = 1
+opponent = NodePath("../Fighter")
