@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b04w020465vjn" path="res://Scripts/Hitboxes/hit_receiver.gd" id="8_23t3j"]
 [ext_resource type="Animation" uid="uid://nr357k0gphia" path="res://Animations/Idle.tres" id="9_6swd7"]
 [ext_resource type="Material" uid="uid://caqqo6jpo8ss" path="res://Models/Outfits/Outfit_Blue.tres" id="10_7qvly"]
+[ext_resource type="AudioStream" uid="uid://trt8qlvj3c31" path="res://Audio/Music/MenuMusic.mp3" id="12_g8i7c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1rerr"]
 font = ExtResource("2_xhh6f")
@@ -447,6 +448,11 @@ debug_color = Color(0, 0.6151293, 0.6003525, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Male_Ranger3" unique_id=223387585]
 libraries/menu_fighter = SubResource("AnimationLibrary_7qvly")
 autoplay = &"menu_fighter/Idle"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1081098112]
+stream = ExtResource("12_g8i7c")
+volume_db = -15.0
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/PlayerVSPlayerButton" to="." method="_on_player_vs_player_button_pressed"]
 

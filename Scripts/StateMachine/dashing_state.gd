@@ -7,6 +7,8 @@ extends State
 var cooldown_end_time : float
 var move_direction : int
 
+@export var dash_sfx : AudioStream
+
 func can_enter() -> bool:
 	if input_buffer.move_direction() == 0:
 		return false
@@ -25,6 +27,7 @@ func enter():
 	move_direction = input_buffer.move_direction()
 	animation.set_animation("Dash")
 	stamina_controller.consume_stamina(stamina_data.dash_cost)
+	AudioManager.play(dash_sfx)
 
 func update(delta : float):
 	super.update(delta)

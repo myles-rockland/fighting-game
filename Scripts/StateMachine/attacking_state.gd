@@ -15,6 +15,8 @@ var has_hit : bool = false
 @export var hit_detect_start_time : float
 @export var hit_detect_end_time : float
 
+@export var swing_sfx : AudioStream
+
 func _stamina_cost() -> float:
 	return 0
 
@@ -31,6 +33,7 @@ func enter():
 	fighter.add_force(forward_force * fighter.forward_direction)
 	has_hit = false
 	stamina_controller.consume_stamina(_stamina_cost())
+	AudioManager.play(swing_sfx)
 
 func update(delta : float):
 	super.update(delta)

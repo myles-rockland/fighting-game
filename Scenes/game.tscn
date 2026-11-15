@@ -4,7 +4,12 @@
 [ext_resource type="Script" uid="uid://bg7xabk5qj621" path="res://Scripts/Camera/camera_controller.gd" id="1_nb51f"]
 [ext_resource type="Script" uid="uid://bh38h7f8wpbp1" path="res://Scripts/Managers/game_manager.gd" id="1_nnt18"]
 [ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="2_ewbju"]
+[ext_resource type="AudioStream" uid="uid://bt0rcl84vpl7h" path="res://Audio/Music/BattleMusic.mp3" id="3_i6g32"]
+[ext_resource type="AudioStream" uid="uid://bancmvruhchwo" path="res://Audio/Voice/3.ogg" id="3_ldgsr"]
+[ext_resource type="AudioStream" uid="uid://dqu5phq2hddi2" path="res://Audio/Voice/2.ogg" id="4_o5yvi"]
+[ext_resource type="AudioStream" uid="uid://c67myaqbeiuqk" path="res://Audio/Voice/1.ogg" id="5_rku1e"]
 [ext_resource type="PackedScene" uid="uid://00h4prwqojkh" path="res://Scenes/environment.tscn" id="5_wowpa"]
+[ext_resource type="AudioStream" uid="uid://bmub415t6s514" path="res://Audio/Voice/Fight.ogg" id="6_rfjv2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nnt18"]
 font = ExtResource("2_ewbju")
@@ -64,6 +69,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CountdownVoice:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
 
 [sub_resource type="Animation" id="Animation_85qyi"]
 resource_name = "countdown"
@@ -103,6 +120,41 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CountdownVoice:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_ldgsr"), ExtResource("4_o5yvi"), ExtResource("5_rku1e"), ExtResource("6_rfjv2")]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../CountdownVoice")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iivbl"]
@@ -170,6 +222,13 @@ wait_time = 3.0
 
 [node name="EndGameTimer" type="Timer" parent="GameManager" unique_id=163433056]
 wait_time = 3.0
+
+[node name="Music" type="AudioStreamPlayer" parent="GameManager" unique_id=400940574]
+stream = ExtResource("3_i6g32")
+volume_db = -20.0
+autoplay = true
+
+[node name="CountdownVoice" type="AudioStreamPlayer" parent="GameManager" unique_id=82235615]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=831530007 node_paths=PackedStringArray("target_a", "target_b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4049938, 4.0821447)

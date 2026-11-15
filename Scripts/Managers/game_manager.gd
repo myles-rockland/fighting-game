@@ -49,4 +49,4 @@ func _on_countdown_timer_timeout() -> void:
 
 
 func _on_end_game_timer_timeout() -> void:
-	print("Go to menu")
+	get_tree().change_scene_to_file("res://Scenes/menu.tscn")

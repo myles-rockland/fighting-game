@@ -20,6 +20,8 @@ var is_defeated : bool = false
 var is_invulnerable : bool = false
 var can_control : bool = false
 
+@export var take_damage_sfx : AudioStream
+
 func _ready():
 	for child in find_children("*", "HitReceiver", true, false):
 		child.initialise(self)
@@ -72,6 +74,7 @@ func take_damage(hit_receiver : HitReceiver, damage_amount : float):
 		
 	current_health -= damage_amount
 	GlobalEvents.fighter_damaged.emit(self)
+	AudioManager.play(take_damage_sfx)
 	
 	if current_health <= 0:
 		current_health = 0
