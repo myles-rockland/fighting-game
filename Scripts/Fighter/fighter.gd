@@ -64,7 +64,7 @@ func take_damage(hit_receiver : HitReceiver, damage_amount : float):
 		return
 		
 	current_health -= damage_amount
-	print(current_health)
+	GlobalEvents.fighter_damaged.emit(self)
 	
 	if current_health <= 0:
 		current_health = 0
@@ -76,3 +76,4 @@ func take_damage(hit_receiver : HitReceiver, damage_amount : float):
 func defeat():
 	is_defeated = true
 	state_machine.change_state("Defeated")
+	GlobalEvents.fighter_defeated.emit(self)
