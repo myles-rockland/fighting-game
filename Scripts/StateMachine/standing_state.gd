@@ -15,4 +15,8 @@ func update(delta : float):
 	if input_buffer.is_pressed("jump"):
 		state_machine.change_state("Jumping")
 		return
+		
+	if input_buffer.is_pressed("dash"):
+		state_machine.change_state("Dashing")
+		return
 	

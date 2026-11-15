@@ -21,6 +21,7 @@
 [ext_resource type="Animation" uid="uid://b2frugccqmd7i" path="res://Animations/Hit_Head.tres" id="10_blb8o"]
 [ext_resource type="Script" uid="uid://3f52fg41rq4r" path="res://Scripts/StateMachine/defeated_state.gd" id="10_oyw7k"]
 [ext_resource type="Animation" uid="uid://nr357k0gphia" path="res://Animations/Idle.tres" id="11_6qi7a"]
+[ext_resource type="Script" uid="uid://c3us07uugi18m" path="res://Scripts/StateMachine/dashing_state.gd" id="11_oxh7g"]
 [ext_resource type="Animation" uid="uid://png5jl5d1e66" path="res://Animations/JumpIdle.tres" id="12_jaup7"]
 [ext_resource type="Script" uid="uid://b74q6ifxm4hti" path="res://Scripts/Hitboxes/hit_sender.gd" id="13_es3qy"]
 [ext_resource type="Animation" uid="uid://xx013mh1uxud" path="res://Animations/JumpLand.tres" id="13_ody11"]
@@ -266,18 +267,25 @@ metadata/_custom_type_script = "uid://cfgbm57ywollh"
 script = ExtResource("10_oyw7k")
 metadata/_custom_type_script = "uid://3f52fg41rq4r"
 
+[node name="Dashing" type="Node" parent="StateMachine" unique_id=137720702]
+script = ExtResource("11_oxh7g")
+distance = 1.5
+duration = 0.2
+cooldown = 1.0
+metadata/_custom_type_script = "uid://c3us07uugi18m"
+
 [node name="Male_Ranger" parent="." unique_id=1571612708 instance=ExtResource("1_5ayxl")]
 
 [node name="GeneralSkeleton" parent="Male_Ranger/Armature" parent_id_path=PackedInt32Array(1571612708, 1171658553) index="0" unique_id=982620729]
-bones/1/position = Vector3(0.002214305, 0.8995683, -0.091101676)
-bones/1/rotation = Quaternion(-0.034955785, -0.11594258, -0.004082955, 0.99263227)
-bones/3/rotation = Quaternion(0.09168743, 0.00011242557, 0.00025434297, 0.99578786)
-bones/4/rotation = Quaternion(0.0916835, 0.0003199592, 0.0002477238, 0.9957881)
-bones/5/rotation = Quaternion(-0.09168369, -0.00021650369, -0.00026056846, 0.9957882)
-bones/6/rotation = Quaternion(0.044253647, 0.09538251, 0.011313722, 0.99439216)
-bones/7/rotation = Quaternion(0.5032703, 0.52109665, 0.531212, -0.43930772)
-bones/8/rotation = Quaternion(-0.012395477, 0.82577264, -0.5637843, 0.009656646)
-bones/9/rotation = Quaternion(0.15782174, -0.68881834, 0.16896898, 0.6870743)
+bones/1/position = Vector3(0.0048210733, 0.9056511, -0.08934538)
+bones/1/rotation = Quaternion(-0.046471823, -0.11588743, -0.0054280655, 0.99215984)
+bones/3/rotation = Quaternion(0.08482467, 0.00011058328, 0.0002579159, 0.9963959)
+bones/4/rotation = Quaternion(0.08482468, 0.0003143695, 0.00025143166, 0.9963958)
+bones/5/rotation = Quaternion(-0.084824614, -0.00021278088, -0.0002633784, 0.9963958)
+bones/6/rotation = Quaternion(0.065863155, 0.095470466, 0.010562925, 0.9931948)
+bones/7/rotation = Quaternion(0.49186113, 0.525125, 0.52774334, -0.45144585)
+bones/8/rotation = Quaternion(-0.048449986, 0.81983024, -0.5704697, 0.009771058)
+bones/9/rotation = Quaternion(0.17410858, -0.66342396, 0.1730615, 0.7068271)
 bones/10/rotation = Quaternion(0.09913024, 0.70686626, 0.0629003, 0.69753635)
 bones/11/rotation = Quaternion(0.6295969, -4.0978193e-08, -4.61936e-06, 0.77692205)
 bones/12/rotation = Quaternion(0.62334186, 2.9802322e-08, -4.261732e-06, 0.78194946)
@@ -295,9 +303,9 @@ bones/27/rotation = Quaternion(-0.123819165, 0.7195233, 0.2018354, 0.65285325)
 bones/28/rotation = Quaternion(0.18180694, 0.11012423, 0.060063303, 0.9753006)
 bones/29/rotation = Quaternion(0.5994299, 0.27396563, 0.19463211, 0.7264606)
 bones/30/scale = Vector3(1.0001454, 1.0004877, 1.0005833)
-bones/31/rotation = Quaternion(0.5552115, -0.4708785, -0.47768658, -0.49176145)
-bones/32/rotation = Quaternion(0.06528763, 0.82069236, -0.5675449, -0.009720985)
-bones/33/rotation = Quaternion(0.28803885, 0.55683184, -0.21049592, 0.75010896)
+bones/31/rotation = Quaternion(0.54401886, -0.4735194, -0.47554937, -0.50366217)
+bones/32/rotation = Quaternion(0.09169906, 0.82510245, -0.5574103, -0.009547368)
+bones/33/rotation = Quaternion(0.29250345, 0.54159796, -0.20442554, 0.76113313)
 bones/34/rotation = Quaternion(0.12024976, -0.69903094, -0.056890074, 0.702609)
 bones/35/rotation = Quaternion(0.6295971, 3.7252903e-08, 4.172325e-06, 0.7769218)
 bones/36/rotation = Quaternion(0.62334144, 1.825392e-07, 4.470348e-06, 0.7819497)
@@ -319,13 +327,13 @@ bones/51/rotation = Quaternion(-0.12381923, -0.7195234, -0.2018356, 0.6528533)
 bones/52/rotation = Quaternion(0.18180703, -0.11012423, -0.060063303, 0.97530067)
 bones/53/rotation = Quaternion(0.5994302, -0.2739653, -0.19463223, 0.7264605)
 bones/54/scale = Vector3(1.0001454, 1.0004876, 1.0005835)
-bones/55/rotation = Quaternion(-0.0008366468, 0.15931876, 0.9799539, -0.119612776)
-bones/56/rotation = Quaternion(0.021519413, 0.97387123, -0.19768843, 0.10968675)
-bones/57/rotation = Quaternion(-0.096276864, 0.7141059, -0.6933531, 0.006706302)
+bones/55/rotation = Quaternion(-0.0007925239, 0.12742522, 0.98535454, -0.11330771)
+bones/56/rotation = Quaternion(0.017763808, 0.9802184, -0.16228664, 0.11189031)
+bones/57/rotation = Quaternion(-0.09512446, 0.72486854, -0.6822624, 0.0059112334)
 bones/58/rotation = Quaternion(4.664862e-08, 1, 5.9604645e-08, 2.7766912e-08)
-bones/60/rotation = Quaternion(0.0009771246, -0.07117117, 0.98763263, 0.13969797)
-bones/61/rotation = Quaternion(-0.05447877, 0.9223447, -0.14943574, -0.35210988)
-bones/62/rotation = Quaternion(0.17075628, 0.6187347, -0.7668123, 0.0029186383)
+bones/60/rotation = Quaternion(0.0008549424, -0.1043438, 0.9870015, 0.12222846)
+bones/61/rotation = Quaternion(-0.035747856, 0.927797, -0.099323735, -0.35784018)
+bones/62/rotation = Quaternion(0.17177899, 0.6393758, -0.74945927, -0.0011850309)
 bones/63/rotation = Quaternion(-6.703263e-08, 1, 8.940697e-08, 2.1454163e-09)
 
 [node name="Fighter0HeadSphere005Retopology004" type="MeshInstance3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="9" unique_id=790173998]
@@ -341,7 +349,7 @@ mesh = ExtResource("4_wee8k")
 skeleton = NodePath("..")
 
 [node name="LeftHand" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="12" unique_id=1744838263]
-transform = Transform3D(0.45026088, 0.030439392, -0.89237815, -0.4146331, -0.87799954, -0.23915736, -0.7907874, 0.4776928, -0.38270748, 0.31076717, 0.94415516, 0.029241808)
+transform = Transform3D(0.4692859, 0.030608505, -0.8825159, -0.41094515, -0.87701327, -0.24894154, -0.78159773, 0.4794904, -0.39899138, 0.32470572, 0.9605197, 0.011522584)
 bone_name = "LeftHand"
 bone_idx = 10
 
@@ -353,7 +361,7 @@ shape = SubResource("SphereShape3D_gvo7x")
 debug_color = Color(0.98843485, 0.10650497, 0, 0.41960785)
 
 [node name="RightHand" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="13" unique_id=1894716002]
-transform = Transform3D(0.052768078, -0.13179569, 0.9898714, 0.5366288, -0.8322222, -0.1394121, 0.8421669, 0.53855, 0.026810696, -0.27033588, 0.96747196, -0.15361798)
+transform = Transform3D(0.07560197, -0.15545657, 0.9849455, 0.51369774, -0.8405345, -0.17209384, 0.85463387, 0.5189749, 0.016311813, -0.2795688, 0.98278165, -0.17900848)
 bone_name = "RightHand"
 bone_idx = 34
 
@@ -365,7 +373,7 @@ shape = SubResource("SphereShape3D_gvo7x")
 debug_color = Color(0.98843485, 0.10650497, 0, 0.41960785)
 
 [node name="Chest" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="14" unique_id=1901246565]
-transform = Transform3D(0.9731304, -0.026512656, -0.228723, 0.00051336637, 0.9935961, -0.1129895, 0.23025392, 0.1098361, 0.96691215, -0.004860013, 1.1310009, -0.06123173)
+transform = Transform3D(0.97313315, -0.018036159, -0.22953564, 0.0005138742, 0.9970947, -0.07616982, 0.23024258, 0.074005425, 0.97031516, -0.0010136045, 1.1377336, -0.06470959)
 bone_name = "Chest"
 bone_idx = 3
 
@@ -379,7 +387,7 @@ shape = SubResource("BoxShape3D_8ogur")
 debug_color = Color(8.663535e-07, 0.70612025, 0.6703208, 1)
 
 [node name="Head" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="15" unique_id=435293510]
-transform = Transform3D(0.9975217, -0.060682442, -0.035609707, 0.052585326, 0.97925454, -0.19569224, 0.046746, 0.19333474, 0.9800186, -0.020371705, 1.5535506, 0.002868902)
+transform = Transform3D(0.99779034, -0.056516632, -0.034934387, 0.04831277, 0.9780981, -0.20245925, 0.04561156, 0.20032416, 0.9786674, -0.012238182, 1.5625116, -0.018740714)
 bone_name = "Head"
 bone_idx = 6
 
