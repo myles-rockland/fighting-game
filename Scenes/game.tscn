@@ -4,19 +4,7 @@
 [ext_resource type="Script" uid="uid://bg7xabk5qj621" path="res://Scripts/Camera/camera_controller.gd" id="1_nb51f"]
 [ext_resource type="Script" uid="uid://bh38h7f8wpbp1" path="res://Scripts/Managers/game_manager.gd" id="1_nnt18"]
 [ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="2_ewbju"]
-[ext_resource type="Texture2D" uid="uid://yrue5dottpwe" path="res://Textures/Skybox/SkyboxTexture.png" id="2_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://dtlsh06pm7wji" path="res://Models/Castle/CastleWall.glb" id="3_3dryh"]
-[ext_resource type="Material" uid="uid://dmwwu5y8jsxpb" path="res://Models/Castle/castle_ground.tres" id="4_wowpa"]
-[ext_resource type="Material" uid="uid://c8y16twfehobg" path="res://Models/Castle/castle_wall.tres" id="5_i6g32"]
-[ext_resource type="PackedScene" uid="uid://2d4kg1ngy4d2" path="res://Models/Mountains/Mountains.glb" id="6_1l0tm"]
-[ext_resource type="Material" uid="uid://dqfbi2lii2qtl" path="res://Models/Mountains/mountains.tres" id="7_v158k"]
-[ext_resource type="PackedScene" uid="uid://cw1u0jap3kjg7" path="res://Models/Nature/DeadTree_3.gltf" id="8_ldgsr"]
-[ext_resource type="PackedScene" uid="uid://cnfq2yv221wfa" path="res://Models/Nature/DeadTree_4.gltf" id="9_o5yvi"]
-[ext_resource type="PackedScene" uid="uid://ct1d8ixg4q077" path="res://Models/Nature/DeadTree_2.gltf" id="10_rku1e"]
-[ext_resource type="PackedScene" uid="uid://cqeolksc6h3ps" path="res://Models/Props/torch.tscn" id="11_o5yvi"]
-[ext_resource type="PackedScene" uid="uid://bvsqlg75hjjh7" path="res://Models/Props/Anvil_Log.gltf" id="12_1phco"]
-[ext_resource type="PackedScene" uid="uid://b0m472m67jm1n" path="res://Models/Props/Crate_Wooden.gltf" id="12_rku1e"]
-[ext_resource type="PackedScene" uid="uid://cyntcx0uhl44l" path="res://Models/Props/Barrel.gltf" id="13_nb51f"]
+[ext_resource type="PackedScene" uid="uid://00h4prwqojkh" path="res://Scenes/environment.tscn" id="5_wowpa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nnt18"]
 font = ExtResource("2_ewbju")
@@ -128,43 +116,6 @@ _limits = [4.0, 6.0, 2.0, 10.0]
 _data = [Vector2(2, 4), 0.0, 0.0, 0, 0, Vector2(10, 6), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gvo7x"]
-panorama = ExtResource("2_wrm1d")
-
-[sub_resource type="Sky" id="Sky_tncop"]
-sky_material = SubResource("PanoramaSkyMaterial_gvo7x")
-
-[sub_resource type="Environment" id="Environment_gvo7x"]
-background_mode = 2
-sky = SubResource("Sky_tncop")
-sky_custom_fov = 72.0
-sky_rotation = Vector3(0, -2.5307274, 0)
-ambient_light_source = 3
-ambient_light_sky_contribution = 0.5
-reflected_light_source = 2
-ssao_enabled = true
-ssil_enabled = true
-glow_enabled = true
-glow_bloom = 0.2
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.7529412, 0.34901962, 0.2627451, 1)
-fog_light_energy = 0.5
-fog_density = 1.0
-fog_sky_affect = 0.8
-fog_height = 0.5
-fog_height_density = 0.5
-fog_depth_begin = 2.0
-fog_depth_end = 50.0
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_gvo7x"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_rku1e"]
-plane = Plane(1, 0, 0, 0)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tncop"]
-plane = Plane(-1, 0, 0, 0)
-
 [node name="Root" type="Node3D" unique_id=1886236395]
 
 [node name="GameManager" type="Node" parent="." unique_id=877141604]
@@ -238,151 +189,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0
 player_id = 1
 opponent = NodePath("../Fighter")
 
-[node name="Environment" type="Node" parent="." unique_id=509862632]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=393955402]
-environment = SubResource("Environment_gvo7x")
-
-[node name="CastleWall" parent="Environment" unique_id=476224517 instance=ExtResource("3_3dryh")]
-
-[node name="Cube" parent="Environment/CastleWall" index="0" unique_id=1846132474]
-surface_material_override/0 = ExtResource("4_wowpa")
-surface_material_override/1 = ExtResource("5_i6g32")
-
-[node name="Cube_001" parent="Environment/CastleWall" index="1" unique_id=60859238]
-material_override = ExtResource("5_i6g32")
-
-[node name="Colliders" type="StaticBody3D" parent="Environment" unique_id=1361824826]
-
-[node name="Ground" type="CollisionShape3D" parent="Environment/Colliders" unique_id=1909027505]
-shape = SubResource("WorldBoundaryShape3D_gvo7x")
-
-[node name="LeftWall" type="CollisionShape3D" parent="Environment/Colliders" unique_id=1365292046]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_rku1e")
-
-[node name="RightWall" type="CollisionShape3D" parent="Environment/Colliders" unique_id=2023516834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_tncop")
-
-[node name="Background" type="Node" parent="Environment" unique_id=327695067]
-
-[node name="Mountains" parent="Environment/Background" unique_id=480339935 instance=ExtResource("6_1l0tm")]
-transform = Transform3D(2.45, 0, 0, 0, 4, 0, 0, 0, 1.85, 0, -8, -50)
-
-[node name="Grid" parent="Environment/Background/Mountains" index="0" unique_id=748246739]
-surface_material_override/0 = ExtResource("7_v158k")
-
-[node name="Mountains2" parent="Environment/Background" unique_id=1010523670 instance=ExtResource("6_1l0tm")]
-transform = Transform3D(2.45, 0, 0, 0, 4, 0, 0, 0, 1.85, 55, -8, -50)
-
-[node name="Grid" parent="Environment/Background/Mountains2" index="0" unique_id=748246739]
-surface_material_override/0 = ExtResource("7_v158k")
-
-[node name="Mountains3" parent="Environment/Background" unique_id=1008304840 instance=ExtResource("6_1l0tm")]
-transform = Transform3D(2.45, 0, 0, 0, 4, 0, 0, 0, 1.85, -55, -8, -50)
-
-[node name="Grid" parent="Environment/Background/Mountains3" index="0" unique_id=748246739]
-surface_material_override/0 = ExtResource("7_v158k")
-
-[node name="DeadTree_32" parent="Environment/Background" unique_id=164737187 instance=ExtResource("8_ldgsr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -1.8604517, -5.4814253, -10.566239)
-
-[node name="DeadTree_42" parent="Environment/Background" unique_id=1182704243 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 6.492695, -5.4814253, -10.529316)
-
-[node name="DeadTree_43" parent="Environment/Background" unique_id=2011654414 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.5678168, 0, 0, 0, 0.5678168, 0, 0, 0, 0.5678168, -5.1584435, -5.4814234, -40.19719)
-
-[node name="DeadTree_44" parent="Environment/Background" unique_id=1117383840 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.11357297, 0, 0.5563426, 0, 0.5678168, 0, -0.5563426, 0, 0.11357296, 11.724312, -5.4814215, -40.568085)
-
-[node name="DeadTree_46" parent="Environment/Background" unique_id=43535365 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.11357297, 0, 0.5563426, 0, 0.5678168, 0, -0.5563426, 0, 0.11357296, -21.203045, -2.7057142, -45.461853)
-
-[node name="DeadTree_47" parent="Environment/Background" unique_id=2058187435 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.11357297, 0, 0.5563426, 0, 0.5678168, 0, -0.5563426, 0, 0.11357296, 4.9103165, 1.3036537, -47.33135)
-
-[node name="DeadTree_48" parent="Environment/Background" unique_id=171852533 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.55225575, 0, 0.13202065, 0, 0.5678168, 0, -0.13202065, 0, 0.5522557, 34.390755, -3.3644562, -43.50558)
-
-[node name="DeadTree_45" parent="Environment/Background" unique_id=2128451148 instance=ExtResource("9_o5yvi")]
-transform = Transform3D(0.3399179, 0, 0.45483154, 0, 0.5678168, 0, -0.4548315, 0, 0.33991787, -41.79146, -1.6583686, -43.542767)
-
-[node name="DeadTree_22" parent="Environment/Background" unique_id=2023332797 instance=ExtResource("10_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -6.7709656, -5.4814253, -9.792023)
-
-[node name="Lights" type="Node" parent="Environment" unique_id=328818159]
-
-[node name="Torch" parent="Environment/Lights" unique_id=219027352 instance=ExtResource("11_o5yvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4670635, 0.5118151, -1.5008225)
-
-[node name="Torch4" parent="Environment/Lights" unique_id=882867261 instance=ExtResource("11_o5yvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4547286, 0.5118151, -1.5008225)
-
-[node name="Torch2" parent="Environment/Lights" unique_id=1719409307 instance=ExtResource("11_o5yvi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4831672, 0.5118151, -1.5008225)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment/Lights" unique_id=1688214412]
-transform = Transform3D(1, 0, 0, 0, 0.8835508, 0.4683353, 0, -0.4683353, 0.8835508, 0, 3.2375145, 6.7480307)
-layers = 2
-light_energy = 2.0
-light_cull_mask = 4294967294
-
-[node name="Props" type="Node" parent="Environment" unique_id=722489767]
-
-[node name="Anvil_Log2" parent="Environment/Props" unique_id=593720904 instance=ExtResource("12_1phco")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4423976, 0, -1.1348627)
-
-[node name="Barrel2" parent="Environment/Props" unique_id=12811354 instance=ExtResource("13_nb51f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8108752, 0, -1.1845872)
-
-[node name="Barrier" type="Node3D" parent="Environment/Props" unique_id=1895265116]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="Crate_Wooden2" parent="Environment/Props/Barrier" unique_id=1406389819 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.05243159, -0.5487223)
-
-[node name="Crate_Wooden3" parent="Environment/Props/Barrier" unique_id=1326707686 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.05243159, 0.4265734)
-
-[node name="Crate_Wooden6" parent="Environment/Props/Barrier" unique_id=1905304082 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1894572, 0.05243159, -0.5487223)
-
-[node name="Crate_Wooden7" parent="Environment/Props/Barrier" unique_id=2068558215 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1894572, 0.05243159, 0.4265734)
-
-[node name="Crate_Wooden4" parent="Environment/Props/Barrier" unique_id=964221223 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, 0.4417752)
-
-[node name="Crate_Wooden5" parent="Environment/Props/Barrier" unique_id=618132685 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, -0.5541576)
-
-[node name="Barrier2" type="Node3D" parent="Environment/Props" unique_id=1918274577]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5, 0, 0)
-
-[node name="Crate_Wooden2" parent="Environment/Props/Barrier2" unique_id=76122889 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.05243159, -0.5487223)
-
-[node name="Crate_Wooden3" parent="Environment/Props/Barrier2" unique_id=1741852529 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.05243159, 0.4265734)
-
-[node name="Crate_Wooden6" parent="Environment/Props/Barrier2" unique_id=1571524474 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1894572, 0.05243159, -0.5487223)
-
-[node name="Crate_Wooden7" parent="Environment/Props/Barrier2" unique_id=49240476 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1894572, 0.05243159, 0.4265734)
-
-[node name="Crate_Wooden4" parent="Environment/Props/Barrier2" unique_id=1856482860 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, 0.4417752)
-
-[node name="Crate_Wooden5" parent="Environment/Props/Barrier2" unique_id=1113478234 instance=ExtResource("12_rku1e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, -0.5541576)
+[node name="Environment" parent="." unique_id=386558300 instance=ExtResource("5_wowpa")]
 
 [connection signal="timeout" from="GameManager/CountdownTimer" to="GameManager" method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="GameManager/EndGameTimer" to="GameManager" method="_on_end_game_timer_timeout"]
-
-[editable path="Environment/CastleWall"]
-[editable path="Environment/Background/Mountains"]
-[editable path="Environment/Background/Mountains2"]
-[editable path="Environment/Background/Mountains3"]

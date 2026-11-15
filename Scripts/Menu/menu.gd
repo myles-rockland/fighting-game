@@ -1,0 +1,5 @@
+extends Node3D
+
+
+func _on_player_vs_player_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")
