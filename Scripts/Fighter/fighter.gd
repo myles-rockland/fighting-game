@@ -4,6 +4,10 @@ extends CharacterBody3D
 @export var player_id : int
 @export var opponent : Fighter
 
+@export var current_health : float = 100
+@export var max_health : float = 100
+
+
 @export var input_handler : InputHandler
 @export var input_buffer : InputBuffer
 @export var state_machine : StateMachine
@@ -12,6 +16,7 @@ var forward_direction : int
 var move_velocity : Vector3
 var horizontal_force : float
 var drag : float = 0.8
+var is_defeated : bool = false
 
 func _ready():
 	for child in find_children("*", "HitReceiver", true, false):
@@ -55,5 +60,19 @@ func _movement(delta : float):
 	move_and_slide()
 
 func take_damage(hit_receiver : HitReceiver, damage_amount : float):
-	state_machine.change_state(hit_receiver.hit_state_name)
-	add_force(forward_direction * -10)
+	if is_defeated:
+		return
+		
+	current_health -= damage_amount
+	print(current_health)
+	
+	if current_health <= 0:
+		current_health = 0
+		defeat()
+	else:
+		state_machine.change_state(hit_receiver.hit_state_name)
+		add_force(forward_direction * -10)
+
+func defeat():
+	is_defeated = true
+	state_machine.change_state("Defeated")
