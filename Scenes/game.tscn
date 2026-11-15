@@ -1,3 +1,46 @@
 [gd_scene format=3 uid="uid://esgkmbgi5jif"]
 
+[ext_resource type="PackedScene" uid="uid://d1gy73bki3yjm" path="res://Scenes/Fighters/fighter.tscn" id="1_ebmjs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gvo7x"]
+size = Vector3(10, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvo7x"]
+size = Vector3(10, 0.5, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ogur"]
+
+[sub_resource type="Sky" id="Sky_tncop"]
+sky_material = SubResource("ProceduralSkyMaterial_8ogur")
+
+[sub_resource type="Environment" id="Environment_gvo7x"]
+background_mode = 2
+sky = SubResource("Sky_tncop")
+
 [node name="Root" type="Node3D" unique_id=1886236395]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=855844757]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1161883924]
+mesh = SubResource("BoxMesh_gvo7x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=804237998]
+shape = SubResource("BoxShape3D_gvo7x")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=831530007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4990988, 7.2028193)
+fov = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=881216935]
+transform = Transform3D(0.8322124, 0.12336665, 0.5405582, -0.55445695, 0.18516722, 0.8113511, 0, -0.97493273, 0.22249995, 1.5661533, 3.354782, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=393955402]
+environment = SubResource("Environment_gvo7x")
+
+[node name="Fighter" parent="." unique_id=607319556 instance=ExtResource("1_ebmjs")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.8585353, 0.25396678, 0.09666538)
+
+[node name="Fighter2" parent="." unique_id=138749005 instance=ExtResource("1_ebmjs")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5118961, 0.25396678, 0.09666538)
+player_id = 1
