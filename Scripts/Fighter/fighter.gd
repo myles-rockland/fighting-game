@@ -18,6 +18,7 @@ var horizontal_force : float
 var drag : float = 0.8
 var is_defeated : bool = false
 var is_invulnerable : bool = false
+var can_control : bool = false
 
 func _ready():
 	for child in find_children("*", "HitReceiver", true, false):
@@ -25,8 +26,13 @@ func _ready():
 	
 	for child in find_children("*", "HitSender", true, false):
 		child.initialise(self)
+		
+	GlobalEvents.game_state_changed.connect(_on_game_state_changed)
 	
 func _physics_process(delta: float):
+	if not can_control:
+		return
+	
 	# Get input packet
 	var input_packet : InputPacket = input_handler.get_input_packet()
 	
@@ -78,3 +84,7 @@ func defeat():
 	is_defeated = true
 	state_machine.change_state("Defeated")
 	GlobalEvents.fighter_defeated.emit(self)
+
+func _on_game_state_changed(game_state : GameManager.GameState):
+	if game_state == GameManager.GameState.PLAYING:
+		can_control = true

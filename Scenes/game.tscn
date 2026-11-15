@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://d1gy73bki3yjm" path="res://Scenes/Fighters/fighter.tscn" id="1_ebmjs"]
 [ext_resource type="Script" uid="uid://bg7xabk5qj621" path="res://Scripts/Camera/camera_controller.gd" id="1_nb51f"]
+[ext_resource type="Script" uid="uid://bh38h7f8wpbp1" path="res://Scripts/Managers/game_manager.gd" id="1_nnt18"]
+[ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="2_ewbju"]
 [ext_resource type="Texture2D" uid="uid://yrue5dottpwe" path="res://Textures/Skybox/SkyboxTexture.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dtlsh06pm7wji" path="res://Models/Castle/CastleWall.glb" id="3_3dryh"]
 [ext_resource type="Material" uid="uid://dmwwu5y8jsxpb" path="res://Models/Castle/castle_ground.tres" id="4_wowpa"]
@@ -15,6 +17,111 @@
 [ext_resource type="PackedScene" uid="uid://bvsqlg75hjjh7" path="res://Models/Props/Anvil_Log.gltf" id="12_1phco"]
 [ext_resource type="PackedScene" uid="uid://b0m472m67jm1n" path="res://Models/Props/Crate_Wooden.gltf" id="12_rku1e"]
 [ext_resource type="PackedScene" uid="uid://cyntcx0uhl44l" path="res://Models/Props/Barrel.gltf" id="13_nb51f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nnt18"]
+font = ExtResource("2_ewbju")
+font_size = 150
+font_color = Color(0.8, 0.078431375, 0, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 14
+stacked_outline_0/color = Color(1, 0.49019608, 0, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ewbju"]
+font = ExtResource("2_ewbju")
+font_size = 92
+font_color = Color(0.8, 0.078431375, 0, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 14
+stacked_outline_0/color = Color(1, 0.49019608, 0, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_ewbju"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownText:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["FIGHT"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CountdownText:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CountdownText:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_85qyi"]
+resource_name = "countdown"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownText:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["3", "2", "1", "FIGHT"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CountdownText:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CountdownText:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3, 3.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iivbl"]
+_data = {
+&"RESET": SubResource("Animation_ewbju"),
+&"countdown": SubResource("Animation_85qyi")
+}
 
 [sub_resource type="Curve" id="Curve_nb51f"]
 _limits = [4.0, 6.0, 2.0, 10.0]
@@ -59,6 +166,59 @@ plane = Plane(1, 0, 0, 0)
 plane = Plane(-1, 0, 0, 0)
 
 [node name="Root" type="Node3D" unique_id=1886236395]
+
+[node name="GameManager" type="Node" parent="." unique_id=877141604]
+script = ExtResource("1_nnt18")
+metadata/_custom_type_script = "uid://bh38h7f8wpbp1"
+
+[node name="CountdownCanvasLayer" type="CanvasLayer" parent="GameManager" unique_id=1618181335]
+
+[node name="CountdownText" type="Label" parent="GameManager/CountdownCanvasLayer" unique_id=295977590]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(300, 100)
+text = "FIGHT"
+label_settings = SubResource("LabelSettings_nnt18")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndGameText" type="Label" parent="GameManager/CountdownCanvasLayer" unique_id=477928083]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -225.0
+offset_right = 300.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(300, 100)
+text = "Player 1 Wins"
+label_settings = SubResource("LabelSettings_ewbju")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountdownAnimation" type="AnimationPlayer" parent="GameManager/CountdownCanvasLayer" unique_id=2031879359]
+libraries/ = SubResource("AnimationLibrary_iivbl")
+
+[node name="CountdownTimer" type="Timer" parent="GameManager" unique_id=8355134]
+wait_time = 3.0
+
+[node name="EndGameTimer" type="Timer" parent="GameManager" unique_id=163433056]
+wait_time = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=831530007 node_paths=PackedStringArray("target_a", "target_b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4049938, 4.0821447)
@@ -218,6 +378,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, 0.44
 
 [node name="Crate_Wooden5" parent="Environment/Props/Barrier2" unique_id=1113478234 instance=ExtResource("12_rku1e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35619113, 0.93263555, -0.5541576)
+
+[connection signal="timeout" from="GameManager/CountdownTimer" to="GameManager" method="_on_countdown_timer_timeout"]
+[connection signal="timeout" from="GameManager/EndGameTimer" to="GameManager" method="_on_end_game_timer_timeout"]
 
 [editable path="Environment/CastleWall"]
 [editable path="Environment/Background/Mountains"]
