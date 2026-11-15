@@ -17,6 +17,7 @@ var move_velocity : Vector3
 var horizontal_force : float
 var drag : float = 0.8
 var is_defeated : bool = false
+var is_invulnerable : bool = false
 
 func _ready():
 	for child in find_children("*", "HitReceiver", true, false):
@@ -60,7 +61,7 @@ func _movement(delta : float):
 	move_and_slide()
 
 func take_damage(hit_receiver : HitReceiver, damage_amount : float):
-	if is_defeated:
+	if is_defeated or is_invulnerable:
 		return
 		
 	current_health -= damage_amount

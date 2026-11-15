@@ -20,7 +20,7 @@ func enter():
 	super.enter()
 	
 	fighter.move_velocity = Vector3.ZERO
-	# TODO: Make fighter invulnerable
+	fighter.is_invulnerable = true
 	
 	move_direction = input_buffer.move_direction()
 	animation.set_animation("Dash")
@@ -40,5 +40,5 @@ func exit():
 	super.exit()
 	
 	fighter.move_velocity = Vector3.ZERO
-	# TODO: Make fighter vulnerable
+	fighter.is_invulnerable = false
 	cooldown_end_time = Time.get_unix_time_from_system() + cooldown
