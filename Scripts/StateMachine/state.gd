@@ -15,6 +15,12 @@ var input_buffer : InputBuffer:
 var animation : FighterAnimation:
 	get: return state_machine.animation
 
+var stamina_controller : StaminaController:
+	get: return state_machine.stamina_controller
+	
+var stamina_data : StaminaData:
+	get: return stamina_controller.data
+
 func initialise(state_machine : StateMachine):
 	self.state_machine = state_machine
 	

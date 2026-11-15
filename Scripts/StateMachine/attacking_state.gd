@@ -15,11 +15,14 @@ var has_hit : bool = false
 @export var hit_detect_start_time : float
 @export var hit_detect_end_time : float
 
+func _stamina_cost() -> float:
+	return 0
+
 func can_enter():
 	if Time.get_unix_time_from_system() < cooldown_end_time:
 		return false
 		
-	return true
+	return stamina_controller.current_stamina >= _stamina_cost()
 
 func enter():
 	super.enter()
@@ -27,6 +30,7 @@ func enter():
 	animation.set_animation(animation_name)
 	fighter.add_force(forward_force * fighter.forward_direction)
 	has_hit = false
+	stamina_controller.consume_stamina(_stamina_cost())
 
 func update(delta : float):
 	super.update(delta)

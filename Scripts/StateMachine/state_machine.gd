@@ -6,7 +6,7 @@ extends Node
 @export var fighter : Fighter
 @export var input_buffer : InputBuffer
 @export var animation : FighterAnimation
-# stamina controller
+@export var stamina_controller : StaminaController
 
 var states : Dictionary[String, State] = { }
 var current_state : State

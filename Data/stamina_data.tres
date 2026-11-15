@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StaminaData" format=3 uid="uid://divwht0vsu7ha"]
+
+[ext_resource type="Script" uid="uid://cswifmmhse1mn" path="res://Scripts/Data/stamina_data.gd" id="1_yvpvi"]
+
+[resource]
+script = ExtResource("1_yvpvi")
+metadata/_custom_type_script = "uid://cswifmmhse1mn"

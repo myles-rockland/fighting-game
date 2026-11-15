@@ -4,9 +4,13 @@ extends MovementState
 @export var jump_force : float = 5.0
 @export var gravity : float = 10.0
 
+func can_enter() -> bool:
+	return stamina_controller.current_stamina >= stamina_data.jump_cost
+
 func enter():
 	fighter.move_velocity.y = jump_force
 	animation.set_animation("JumpStart")
+	stamina_controller.consume_stamina(stamina_data.jump_cost)
 
 func update(delta : float):
 	fighter.move_velocity.y -= gravity * delta

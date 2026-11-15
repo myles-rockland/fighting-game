@@ -14,7 +14,7 @@ func can_enter() -> bool:
 	if Time.get_unix_time_from_system() < cooldown_end_time:
 		return false
 		
-	return true
+	return stamina_controller.current_stamina >= stamina_data.dash_cost
 
 func enter():
 	super.enter()
@@ -24,6 +24,7 @@ func enter():
 	
 	move_direction = input_buffer.move_direction()
 	animation.set_animation("Dash")
+	stamina_controller.consume_stamina(stamina_data.dash_cost)
 
 func update(delta : float):
 	super.update(delta)

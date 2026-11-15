@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://esgkmbgi5jif"]
 
 [ext_resource type="PackedScene" uid="uid://d1gy73bki3yjm" path="res://Scenes/Fighters/fighter.tscn" id="1_ebmjs"]
+[ext_resource type="Script" uid="uid://bg7xabk5qj621" path="res://Scripts/Camera/camera_controller.gd" id="1_nb51f"]
 [ext_resource type="Texture2D" uid="uid://yrue5dottpwe" path="res://Textures/Skybox/SkyboxTexture.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dtlsh06pm7wji" path="res://Models/Castle/CastleWall.glb" id="3_3dryh"]
 [ext_resource type="Material" uid="uid://dmwwu5y8jsxpb" path="res://Models/Castle/castle_ground.tres" id="4_wowpa"]
@@ -14,6 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://bvsqlg75hjjh7" path="res://Models/Props/Anvil_Log.gltf" id="12_1phco"]
 [ext_resource type="PackedScene" uid="uid://b0m472m67jm1n" path="res://Models/Props/Crate_Wooden.gltf" id="12_rku1e"]
 [ext_resource type="PackedScene" uid="uid://cyntcx0uhl44l" path="res://Models/Props/Barrel.gltf" id="13_nb51f"]
+
+[sub_resource type="Curve" id="Curve_nb51f"]
+_limits = [4.0, 6.0, 2.0, 10.0]
+_data = [Vector2(2, 4), 0.0, 0.0, 0, 0, Vector2(10, 6), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gvo7x"]
 panorama = ExtResource("2_wrm1d")
@@ -54,9 +60,14 @@ plane = Plane(-1, 0, 0, 0)
 
 [node name="Root" type="Node3D" unique_id=1886236395]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=831530007]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=831530007 node_paths=PackedStringArray("target_a", "target_b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4049938, 4.0821447)
 fov = 50.0
+script = ExtResource("1_nb51f")
+target_a = NodePath("../Fighter")
+target_b = NodePath("../Fighter2")
+smoothing = 5.0
+zoom_curve = SubResource("Curve_nb51f")
 
 [node name="Fighter" parent="." unique_id=607319556 node_paths=PackedStringArray("opponent") instance=ExtResource("1_ebmjs")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 0)

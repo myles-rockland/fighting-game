@@ -22,8 +22,10 @@
 [ext_resource type="Script" uid="uid://3f52fg41rq4r" path="res://Scripts/StateMachine/defeated_state.gd" id="10_oyw7k"]
 [ext_resource type="Animation" uid="uid://nr357k0gphia" path="res://Animations/Idle.tres" id="11_6qi7a"]
 [ext_resource type="Script" uid="uid://c3us07uugi18m" path="res://Scripts/StateMachine/dashing_state.gd" id="11_oxh7g"]
+[ext_resource type="Script" uid="uid://6os4msfgdsfm" path="res://Scripts/Fighter/stamina_controller.gd" id="12_bmhk1"]
 [ext_resource type="Animation" uid="uid://png5jl5d1e66" path="res://Animations/JumpIdle.tres" id="12_jaup7"]
 [ext_resource type="Script" uid="uid://b74q6ifxm4hti" path="res://Scripts/Hitboxes/hit_sender.gd" id="13_es3qy"]
+[ext_resource type="Resource" uid="uid://divwht0vsu7ha" path="res://Data/stamina_data.tres" id="13_gb7ru"]
 [ext_resource type="Animation" uid="uid://xx013mh1uxud" path="res://Animations/JumpLand.tres" id="13_ody11"]
 [ext_resource type="Script" uid="uid://b04w020465vjn" path="res://Scripts/Hitboxes/hit_receiver.gd" id="14_hc3sx"]
 [ext_resource type="Animation" uid="uid://btmv8jpn10svm" path="res://Animations/JumpStart.tres" id="14_i5xkg"]
@@ -34,6 +36,42 @@
 [ext_resource type="Material" uid="uid://dfwtkfex6didw" path="res://Models/Outfits/Outfit_Green.tres" id="19_cpvf1"]
 [ext_resource type="Material" uid="uid://caqqo6jpo8ss" path="res://Models/Outfits/Outfit_Blue.tres" id="20_oxh7g"]
 [ext_resource type="Script" uid="uid://dx2kgsnt6sea1" path="res://Scripts/Fighter/fighter_animation.gd" id="23_jaup7"]
+[ext_resource type="Script" uid="uid://blryto64upnrl" path="res://Scripts/Fighter/fighter_hud.gd" id="35_id81x"]
+[ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="35_y0o4f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id81x"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tncop"]
+bg_color = Color(0.17254902, 0.17254902, 0.17254902, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvo7x"]
+bg_color = Color(1, 0.21176471, 0.11764706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_gvo7x"]
+font = ExtResource("35_y0o4f")
+font_size = 35
+outline_size = 5
+outline_color = Color(0.08235294, 0.08235294, 0.08235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0o4f"]
+bg_color = Color(0.96862745, 0.74509805, 0.09803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gvo7x"]
 radius = 0.2
@@ -208,6 +246,74 @@ input_handler = NodePath("PlayerInputHandler")
 input_buffer = NodePath("InputBuffer")
 state_machine = NodePath("StateMachine")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1467871078]
+
+[node name="HUD" type="Panel" parent="CanvasLayer" unique_id=1791465691]
+offset_left = 801.0
+offset_top = 60.0
+offset_right = 1226.0
+offset_bottom = 144.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_id81x")
+script = ExtResource("35_id81x")
+
+[node name="HudElements" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=738000388]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = -8.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD/HudElements" unique_id=810547626]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_tncop")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gvo7x")
+value = 36.71
+show_percentage = false
+
+[node name="HealthText" type="Label" parent="CanvasLayer/HUD/HudElements/HealthBar" unique_id=1737568935]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_right = 142.0
+grow_vertical = 2
+text = "100"
+label_settings = SubResource("LabelSettings_gvo7x")
+vertical_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="CanvasLayer/HUD/HudElements" unique_id=1164290766]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_tncop")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y0o4f")
+value = 36.71
+show_percentage = false
+
+[node name="Player0Pos" type="Control" parent="CanvasLayer" unique_id=646666415]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 27.0
+offset_top = 25.0
+offset_right = 67.0
+offset_bottom = 65.0
+
+[node name="Player1Pos" type="Control" parent="CanvasLayer" unique_id=344745833]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -441.0
+offset_top = 25.0
+offset_right = -401.0
+offset_bottom = 65.0
+grow_horizontal = 0
+
 [node name="PlayerInputHandler" type="Node" parent="." unique_id=1797632664 node_paths=PackedStringArray("fighter")]
 script = ExtResource("2_a2w56")
 fighter = NodePath("..")
@@ -217,12 +323,13 @@ metadata/_custom_type_script = "uid://671h2lamcmr2"
 script = ExtResource("3_4tng1")
 metadata/_custom_type_script = "uid://yn53h6ctoyeh"
 
-[node name="StateMachine" type="Node" parent="." unique_id=178817441 node_paths=PackedStringArray("starting_state", "fighter", "input_buffer", "animation")]
+[node name="StateMachine" type="Node" parent="." unique_id=178817441 node_paths=PackedStringArray("starting_state", "fighter", "input_buffer", "animation", "stamina_controller")]
 script = ExtResource("4_tk0x5")
 starting_state = NodePath("Standing")
 fighter = NodePath("..")
 input_buffer = NodePath("../InputBuffer")
 animation = NodePath("../FighterAnimation")
+stamina_controller = NodePath("../StaminaController")
 metadata/_custom_type_script = "uid://msl3ljvpot16"
 
 [node name="Standing" type="Node" parent="StateMachine" unique_id=1735210013]
@@ -274,18 +381,25 @@ duration = 0.2
 cooldown = 1.0
 metadata/_custom_type_script = "uid://c3us07uugi18m"
 
+[node name="StaminaController" type="Node" parent="." unique_id=1712113637]
+script = ExtResource("12_bmhk1")
+data = ExtResource("13_gb7ru")
+metadata/_custom_type_script = "uid://6os4msfgdsfm"
+
+[node name="StaminaRegenTimer" type="Timer" parent="StaminaController" unique_id=1087300641]
+
 [node name="Male_Ranger" parent="." unique_id=1571612708 instance=ExtResource("1_5ayxl")]
 
 [node name="GeneralSkeleton" parent="Male_Ranger/Armature" parent_id_path=PackedInt32Array(1571612708, 1171658553) index="0" unique_id=982620729]
-bones/1/position = Vector3(0.001994064, 0.89938587, -0.09123378)
-bones/1/rotation = Quaternion(-0.03409458, -0.1159461, -0.003982362, 0.99266225)
-bones/3/rotation = Quaternion(0.09446378, 0.00011314856, 0.00025284255, 0.99552834)
-bones/4/rotation = Quaternion(0.09446379, 0.00032224247, 0.00024616384, 0.9955282)
-bones/5/rotation = Quaternion(-0.09444408, -0.00021799642, -0.00025944787, 0.9955301)
-bones/6/rotation = Quaternion(0.043281466, 0.09543304, 0.0108761415, 0.994435)
-bones/7/rotation = Quaternion(0.50314814, 0.5211409, 0.53117555, -0.43943912)
-bones/8/rotation = Quaternion(-0.0122061055, 0.82580495, -0.563741, 0.009655925)
-bones/9/rotation = Quaternion(0.15903619, -0.68882686, 0.17035697, 0.6864428)
+bones/1/position = Vector3(-0.002279256, 0.9072402, -0.089674845)
+bones/1/rotation = Quaternion(-0.046206407, -0.11588887, -0.0053970576, 0.99217224)
+bones/3/rotation = Quaternion(0.09127971, 0.00011231846, 0.00025454003, 0.99582535)
+bones/4/rotation = Quaternion(0.091279626, 0.0003196473, 0.00024793705, 0.99582523)
+bones/5/rotation = Quaternion(-0.09129598, -0.00021629094, -0.00026073502, 0.9958238)
+bones/6/rotation = Quaternion(0.07870805, 0.09571122, 0.008078501, 0.9922596)
+bones/7/rotation = Quaternion(0.48782623, 0.52649903, 0.5264894, -0.45566797)
+bones/8/rotation = Quaternion(-0.06181488, 0.81774265, -0.5721711, 0.009800308)
+bones/9/rotation = Quaternion(0.19010508, -0.65103287, 0.18318741, 0.711659)
 bones/10/rotation = Quaternion(0.09913024, 0.70686626, 0.0629003, 0.69753635)
 bones/11/rotation = Quaternion(0.6295969, -4.0978193e-08, -4.61936e-06, 0.77692205)
 bones/12/rotation = Quaternion(0.62334186, 2.9802322e-08, -4.261732e-06, 0.78194946)
@@ -303,9 +417,9 @@ bones/27/rotation = Quaternion(-0.123819165, 0.7195233, 0.2018354, 0.65285325)
 bones/28/rotation = Quaternion(0.18180694, 0.11012423, 0.060063303, 0.9753006)
 bones/29/rotation = Quaternion(0.5994299, 0.27396563, 0.19463211, 0.7264606)
 bones/30/scale = Vector3(1.0001454, 1.0004877, 1.0005833)
-bones/31/rotation = Quaternion(0.5550917, -0.47090763, -0.4776643, -0.49189037)
-bones/32/rotation = Quaternion(0.061524186, 0.8200706, -0.568862, -0.0097435145)
-bones/33/rotation = Quaternion(0.2873818, 0.5590219, -0.211369, 0.7484847)
+bones/31/rotation = Quaternion(0.54005975, -0.47441408, -0.47476894, -0.50780046)
+bones/32/rotation = Quaternion(0.09068741, 0.82493186, -0.557828, -0.009554445)
+bones/33/rotation = Quaternion(0.2924156, 0.5419039, -0.20454754, 0.7609163)
 bones/34/rotation = Quaternion(0.12024976, -0.69903094, -0.056890074, 0.702609)
 bones/35/rotation = Quaternion(0.6295971, 3.7252903e-08, 4.172325e-06, 0.7769218)
 bones/36/rotation = Quaternion(0.62334144, 1.825392e-07, 4.470348e-06, 0.7819497)
@@ -327,13 +441,13 @@ bones/51/rotation = Quaternion(-0.12381923, -0.7195234, -0.2018356, 0.6528533)
 bones/52/rotation = Quaternion(0.18180703, -0.11012423, -0.060063303, 0.97530067)
 bones/53/rotation = Quaternion(0.5994302, -0.2739653, -0.19463223, 0.7264605)
 bones/54/scale = Vector3(1.0001454, 1.0004876, 1.0005835)
-bones/55/rotation = Quaternion(-0.0008380944, 0.16037484, 0.9797561, -0.11982218)
-bones/56/rotation = Quaternion(0.021504436, 0.9738982, -0.19755563, 0.10968979)
-bones/57/rotation = Quaternion(-0.09635587, 0.71387535, -0.6935783, 0.006837991)
+bones/55/rotation = Quaternion(-0.0008035655, 0.11744802, 0.9864113, -0.114883676)
+bones/56/rotation = Quaternion(0.015530255, 0.9832785, -0.14222819, 0.11266566)
+bones/57/rotation = Quaternion(-0.098063566, 0.73119134, -0.67501765, 0.009693742)
 bones/58/rotation = Quaternion(4.664862e-08, 1, 5.9604645e-08, 2.7766912e-08)
-bones/60/rotation = Quaternion(0.0009788076, -0.06996964, 0.98768413, 0.13994083)
-bones/61/rotation = Quaternion(-0.054729737, 0.92223644, -0.15009138, -0.3520757)
-bones/62/rotation = Quaternion(0.17064525, 0.618559, -0.76697856, 0.0029899185)
+bones/60/rotation = Quaternion(0.00078920444, -0.108945124, 0.98762286, 0.11283362)
+bones/61/rotation = Quaternion(-0.030868888, 0.92854494, -0.08629304, -0.35972908)
+bones/62/rotation = Quaternion(0.16937959, 0.6418286, -0.7479082, -0.00023981926)
 bones/63/rotation = Quaternion(-6.703263e-08, 1, 8.940697e-08, 2.1454163e-09)
 
 [node name="Male_Ranger_Acc_Pauldron" parent="Male_Ranger/Armature/GeneralSkeleton" index="0" unique_id=838460122]
@@ -379,7 +493,7 @@ mesh = ExtResource("4_wee8k")
 skeleton = NodePath("..")
 
 [node name="LeftHand" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="12" unique_id=1744838263]
-transform = Transform3D(0.45156378, 0.03200794, -0.8916646, -0.4068166, -0.8820462, -0.23768589, -0.7940972, 0.4700743, -0.38527876, 0.31104103, 0.9441954, 0.027414747)
+transform = Transform3D(0.4824657, 0.026447266, -0.87551576, -0.39418298, -0.8860533, -0.2439861, -0.7822064, 0.46282834, -0.4170651, 0.32047984, 0.96755314, 0.0017239526)
 bone_name = "LeftHand"
 bone_idx = 10
 
@@ -391,7 +505,7 @@ shape = SubResource("SphereShape3D_gvo7x")
 debug_color = Color(0.98843485, 0.10650497, 0, 0.41960785)
 
 [node name="RightHand" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="13" unique_id=1894716002]
-transform = Transform3D(0.05127099, -0.12965432, 0.99023265, 0.53175545, -0.83575, -0.13695997, 0.8453448, 0.53358376, 0.026094679, -0.27017364, 0.9676329, -0.15321153)
+transform = Transform3D(0.07867536, -0.15466991, 0.9848286, 0.48530412, -0.8569862, -0.17336181, 0.87079865, 0.49158072, 0.007637951, -0.2890545, 0.98917717, -0.1874617)
 bone_name = "RightHand"
 bone_idx = 34
 
@@ -403,7 +517,7 @@ shape = SubResource("SphereShape3D_gvo7x")
 debug_color = Color(0.98843485, 0.10650497, 0, 0.41960785)
 
 [node name="Chest" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="14" unique_id=1901246565]
-transform = Transform3D(0.9731302, -0.02818254, -0.22852409, 0.0005113702, 0.9927433, -0.12025165, 0.23025475, 0.116903655, 0.966083, -0.005172793, 1.1307648, -0.060973123)
+transform = Transform3D(0.9731331, -0.021127112, -0.22927192, 0.00050869916, 0.99597603, -0.089618765, 0.23024271, 0.08709435, 0.969228, -0.008142552, 1.1393092, -0.06491823)
 bone_name = "Chest"
 bone_idx = 3
 
@@ -417,7 +531,7 @@ shape = SubResource("BoxShape3D_8ogur")
 debug_color = Color(8.663535e-07, 0.70612025, 0.6703208, 1)
 
 [node name="Head" type="BoneAttachment3D" parent="Male_Ranger/Armature/GeneralSkeleton" index="15" unique_id=435293510]
-transform = Transform3D(0.9975, -0.06121228, -0.035307378, 0.052913673, 0.9781728, -0.20094323, 0.046836853, 0.19857267, 0.9789665, -0.021669928, 1.5527232, 0.0073010623)
+transform = Transform3D(0.9977858, -0.057922788, -0.032685548, 0.048386626, 0.9693767, -0.24076441, 0.04563032, 0.23864979, 0.97003317, -0.021322217, 1.5633006, -0.0106659215)
 bone_name = "Head"
 bone_idx = 6
 
@@ -456,5 +570,7 @@ shape = SubResource("CapsuleShape3D_gvo7x")
 script = ExtResource("23_jaup7")
 animation_tree = NodePath("../AnimationTree")
 metadata/_custom_type_script = "uid://dx2kgsnt6sea1"
+
+[connection signal="timeout" from="StaminaController/StaminaRegenTimer" to="StaminaController" method="_on_stamina_regen_timer_timeout"]
 
 [editable path="Male_Ranger"]
