@@ -12,6 +12,9 @@ var fighter : Fighter:
 var input_buffer : InputBuffer:
 	get: return state_machine.input_buffer
 
+var animation : FighterAnimation:
+	get: return state_machine.animation
+
 func initialise(state_machine : StateMachine):
 	self.state_machine = state_machine
 	
