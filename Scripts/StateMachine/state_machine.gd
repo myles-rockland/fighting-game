@@ -26,7 +26,10 @@ func change_state(state_name : String):
 	if not states.has(state_name):
 		printerr("Cannot change state to ", state_name, " as it doesn't exist!")
 		return
-		
+	
+	if not states[state_name].can_enter():
+		return
+	
 	if current_state:
 		current_state.exit()
 		

@@ -17,3 +17,8 @@ func update(delta : float):
 		
 	var blend_pos : float = move_direction * fighter.forward_direction
 	animation.set_blend_position(blend_position_parameter, blend_pos)
+
+func exit():
+	super.exit()
+	
+	fighter.move_velocity.x = 0

@@ -10,6 +10,8 @@ extends CharacterBody3D
 
 var forward_direction : int
 var move_velocity : Vector3
+var horizontal_force : float
+var drag : float = 0.8
 
 func _physics_process(delta: float):
 	# Get input packet
@@ -35,7 +37,12 @@ func _update_facing_direction():
 		forward_direction = -1
 		rotation_degrees.y = -90
 
+func add_force(force : float):
+	horizontal_force += force
+
 func _movement(delta : float):
-	velocity.x = move_velocity.x
+	horizontal_force *= drag
+	
+	velocity.x = move_velocity.x + horizontal_force
 	velocity.y = move_velocity.y
 	move_and_slide()
