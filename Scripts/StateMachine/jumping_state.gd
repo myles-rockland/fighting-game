@@ -11,6 +11,7 @@ func enter():
 	fighter.move_velocity.y = jump_force
 	animation.set_animation("JumpStart")
 	stamina_controller.consume_stamina(stamina_data.jump_cost)
+	signals.began_jump.emit()
 
 func update(delta : float):
 	fighter.move_velocity.y -= gravity * delta

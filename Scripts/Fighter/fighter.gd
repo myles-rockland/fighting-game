@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var input_handler : InputHandler
 @export var input_buffer : InputBuffer
 @export var state_machine : StateMachine
+@export var signals : FighterSignals
 
 var forward_direction : int
 var move_velocity : Vector3

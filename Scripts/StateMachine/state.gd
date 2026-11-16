@@ -21,6 +21,9 @@ var stamina_controller : StaminaController:
 var stamina_data : StaminaData:
 	get: return stamina_controller.data
 
+var signals : FighterSignals:
+	get: return state_machine.signals
+
 func initialise(state_machine : StateMachine):
 	self.state_machine = state_machine
 	

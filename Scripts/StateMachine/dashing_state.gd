@@ -28,6 +28,7 @@ func enter():
 	animation.set_animation("Dash")
 	stamina_controller.consume_stamina(stamina_data.dash_cost)
 	AudioManager.play(dash_sfx)
+	signals.began_dash.emit()
 
 func update(delta : float):
 	super.update(delta)
