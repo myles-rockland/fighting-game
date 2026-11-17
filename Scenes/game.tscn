@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://bt0rcl84vpl7h" path="res://Audio/Music/BattleMusic.mp3" id="3_i6g32"]
 [ext_resource type="AudioStream" uid="uid://bancmvruhchwo" path="res://Audio/Voice/3.ogg" id="3_ldgsr"]
 [ext_resource type="AudioStream" uid="uid://dqu5phq2hddi2" path="res://Audio/Voice/2.ogg" id="4_o5yvi"]
+[ext_resource type="AudioStream" uid="uid://sgu7untx5tkb" path="res://Audio/Voice/Winner.ogg" id="4_rfjv2"]
+[ext_resource type="AudioStream" uid="uid://crr0b25eu8lps" path="res://Audio/Voice/Loser.ogg" id="5_1phco"]
 [ext_resource type="AudioStream" uid="uid://c67myaqbeiuqk" path="res://Audio/Voice/1.ogg" id="5_rku1e"]
 [ext_resource type="PackedScene" uid="uid://00h4prwqojkh" path="res://Scenes/environment.tscn" id="5_wowpa"]
 [ext_resource type="AudioStream" uid="uid://bmub415t6s514" path="res://Audio/Voice/Fight.ogg" id="6_rfjv2"]
@@ -169,10 +171,14 @@ _limits = [4.0, 6.0, 2.0, 10.0]
 _data = [Vector2(2, 4), 0.0, 0.0, 0, 0, Vector2(10, 6), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Root" type="Node3D" unique_id=1886236395]
+[node name="Game" type="Node3D" unique_id=1886236395]
 
 [node name="GameManager" type="Node" parent="." unique_id=877141604]
 script = ExtResource("1_nnt18")
+player_fighter_scene = ExtResource("1_ebmjs")
+ai_fighter_scene = ExtResource("10_o5yvi")
+winner_sound = ExtResource("4_rfjv2")
+loser_sound = ExtResource("5_1phco")
 metadata/_custom_type_script = "uid://bh38h7f8wpbp1"
 
 [node name="CountdownCanvasLayer" type="CanvasLayer" parent="GameManager" unique_id=1618181335]
@@ -231,23 +237,18 @@ autoplay = true
 
 [node name="CountdownVoice" type="AudioStreamPlayer" parent="GameManager" unique_id=82235615]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=831530007 node_paths=PackedStringArray("target_a", "target_b")]
+[node name="Fighter0Spawn" type="Node3D" parent="GameManager" unique_id=131227702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="Fighter1Spawn" type="Node3D" parent="GameManager" unique_id=1034117008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=831530007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4049938, 4.0821447)
 fov = 50.0
 script = ExtResource("1_nb51f")
-target_a = NodePath("../Fighter")
-target_b = NodePath("../FighterAI")
 smoothing = 5.0
 zoom_curve = SubResource("Curve_nb51f")
-
-[node name="Fighter" parent="." unique_id=607319556 node_paths=PackedStringArray("opponent") instance=ExtResource("1_ebmjs")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 0)
-opponent = NodePath("../FighterAI")
-
-[node name="FighterAI" parent="." unique_id=170190280 node_paths=PackedStringArray("opponent") instance=ExtResource("10_o5yvi")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0, 0)
-player_id = 1
-opponent = NodePath("../Fighter")
 
 [node name="Environment" parent="." unique_id=386558300 instance=ExtResource("5_wowpa")]
 

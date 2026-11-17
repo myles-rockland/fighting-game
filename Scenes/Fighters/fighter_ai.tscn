@@ -9,41 +9,44 @@
 input_handler = NodePath("AIInputHandler")
 
 [node name="GeneralSkeleton" parent="Male_Ranger/Armature" parent_id_path=PackedInt32Array(1571612708, 1171658553) index="0" unique_id=982620729]
-bones/1/position = Vector3(0.0024220764, 0.89959866, -0.09128177)
-bones/1/rotation = Quaternion(-0.03418766, -0.11594572, -0.003993234, 0.99265903)
-bones/3/rotation = Quaternion(0.09616994, 0.00011359608, 0.00025193382, 0.99536496)
-bones/4/rotation = Quaternion(0.09616986, 0.00032361283, 0.00024524788, 0.9953649)
-bones/5/rotation = Quaternion(-0.09616998, -0.000218925, -0.00025872837, 0.99536496)
-bones/6/rotation = Quaternion(0.044546098, 0.09548278, 0.010427826, 0.9943792)
-bones/7/rotation = Quaternion(0.50284624, 0.52125025, 0.53108513, -0.43976414)
-bones/8/rotation = Quaternion(-0.012375023, 0.82577616, -0.5637796, 0.009656576)
-bones/9/rotation = Quaternion(0.16118075, -0.6879958, 0.17234242, 0.68628037)
-bones/31/rotation = Quaternion(0.55479556, -0.47097963, -0.47760904, -0.49220908)
-bones/32/rotation = Quaternion(0.059948716, 0.8198109, -0.5694043, -0.009752927)
-bones/33/rotation = Quaternion(0.28713337, 0.5598461, -0.21169752, 0.7478709)
-bones/55/rotation = Quaternion(-0.00083582266, 0.16040681, 0.97979057, -0.11949727)
-bones/56/rotation = Quaternion(0.021520182, 0.973882, -0.19760598, 0.10973914)
-bones/57/rotation = Quaternion(-0.096129805, 0.71404135, -0.69343984, 0.0067166807)
-bones/60/rotation = Quaternion(0.0009772106, -0.070049085, 0.98771083, 0.13971229)
-bones/61/rotation = Quaternion(-0.054749716, 0.9222185, -0.15012966, -0.35210323)
-bones/62/rotation = Quaternion(0.17071499, 0.6188584, -0.7667221, 0.0028455483)
+bones/1/position = Vector3(0.0034597686, 0.9012755, -0.09034221)
+bones/1/rotation = Quaternion(-0.040565997, -0.11591765, -0.004738234, 0.9924188)
+bones/3/rotation = Quaternion(0.08598904, 0.00011088659, 0.00025730356, 0.99629605)
+bones/4/rotation = Quaternion(0.085989006, 0.00031532336, 0.00025076672, 0.99629605)
+bones/5/rotation = Quaternion(-0.085989006, -0.00021341148, -0.00026287764, 0.99629605)
+bones/6/rotation = Quaternion(0.0483543, 0.095299006, 0.012010708, 0.99420106)
+bones/7/rotation = Quaternion(0.4998876, 0.5223135, 0.5301956, -0.44293767)
+bones/8/rotation = Quaternion(-0.023134358, 0.8239558, -0.5660987, 0.009696183)
+bones/9/rotation = Quaternion(0.1586242, -0.6823385, 0.16636723, 0.69395566)
+bones/31/rotation = Quaternion(0.55189335, -0.47167897, -0.47706383, -0.4953209)
+bones/32/rotation = Quaternion(0.077192925, 0.8226733, -0.5631667, -0.009646117)
+bones/33/rotation = Quaternion(0.29010552, 0.5498589, -0.20771676, 0.7552136)
+bones/55/rotation = Quaternion(-0.00082179444, 0.14818202, 0.98195606, -0.11748997)
+bones/56/rotation = Quaternion(0.020455267, 0.97582275, -0.18756421, 0.11032373)
+bones/57/rotation = Quaternion(-0.09579762, 0.71687394, -0.69056314, 0.0061048246)
+bones/60/rotation = Quaternion(0.0009435246, -0.082833566, 0.987391, 0.13489582)
+bones/61/rotation = Quaternion(-0.048967578, 0.92431235, -0.13466011, -0.35371676)
+bones/62/rotation = Quaternion(0.1713384, 0.62499654, -0.7615904, 0.0016426825)
 
 [node name="LeftHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="12" unique_id=1744838263]
-transform = Transform3D(0.45362186, 0.030978188, -0.8906555, -0.4052688, -0.8829113, -0.2371172, -0.7937156, 0.46851653, -0.38795346, 0.3116187, 0.9449653, 0.02675723)
+transform = Transform3D(0.45326343, 0.031605832, -0.89081615, -0.42022413, -0.87377083, -0.24481861, -0.7861068, 0.48530966, -0.38276687, 0.3156888, 0.9484937, 0.025170408)
 
 [node name="RightHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="13" unique_id=1894716002]
-transform = Transform3D(0.05101453, -0.1285972, 0.9903838, 0.52814776, -0.8381844, -0.13603973, 0.84761864, 0.5300091, 0.025158618, -0.26966056, 0.96826124, -0.15379679)
+transform = Transform3D(0.062369406, -0.14186434, 0.9879195, 0.5390692, -0.8282542, -0.1529693, 0.8399495, 0.5420975, 0.024816833, -0.27321714, 0.9714435, -0.1611693)
 
 [node name="Chest" parent="Male_Ranger/Armature/GeneralSkeleton" index="14" unique_id=1901246565]
-transform = Transform3D(0.9731302, -0.028921463, -0.22843157, 0.00050990266, 0.99234843, -0.123467885, 0.23025456, 0.12003386, 0.9656991, -0.004734779, 1.1309834, -0.061063338)
+transform = Transform3D(0.9731317, -0.021305159, -0.22926125, 0.0005155811, 0.995909, -0.09036097, 0.23024847, 0.08781493, 0.96916157, -0.003011153, 1.1330403, -0.06302002)
 
 [node name="Head" parent="Male_Ranger/Armature/GeneralSkeleton" index="15" unique_id=435293510]
-transform = Transform3D(0.9975028, -0.061370783, -0.034951895, 0.052871756, 0.97700375, -0.20656261, 0.046824977, 0.20419887, 0.9778089, -0.021713777, 1.5526482, 0.009253111)
+transform = Transform3D(0.997656, -0.058013648, -0.03629005, 0.05049851, 0.982062, -0.18167096, 0.046178445, 0.17941257, 0.9826895, -0.015743304, 1.5570838, -0.01068056)
 
-[node name="AIBrain" type="Node" parent="." index="12" unique_id=305785966 node_paths=PackedStringArray("fighter", "detector")]
+[node name="AIBrain" type="Node" parent="." index="12" unique_id=305785966 node_paths=PackedStringArray("fighter", "detector", "stamina_controller")]
 script = ExtResource("2_l6g7g")
 fighter = NodePath("..")
 detector = NodePath("../AIDetector")
+stamina_controller = NodePath("../StaminaController")
+light_attack_range = 1.2
+heavy_attack_range = 1.5
 skill = 0.7
 bravery = 0.5
 metadata/_custom_type_script = "uid://bbpwnvtutitm4"

@@ -13,6 +13,7 @@ var intensity : float = 0.0
 
 func _ready():
 	GlobalEvents.fighter_damaged.connect(_on_fighter_damaged)
+	GlobalEvents.fighter_spawned.connect(_on_fighter_spawned)
 
 func _on_fighter_damaged(fighter : Fighter):
 	intensity = shake_amount
@@ -26,9 +27,18 @@ func _physics_process(delta : float):
 		v_offset = randf_range(-intensity, intensity)
 
 func _camera_follow(delta : float):
+	if not target_a or not target_b:
+		return
+	
 	var center_pos : Vector3 = target_a.global_position.lerp(target_b.global_position, 0.5)
 	var distance : float = target_a.global_position.distance_to(target_b.global_position)
 	
 	position.x = lerp(position.x, center_pos.x, smoothing * delta)
 	
 	position.z = zoom_curve.sample(distance)
+
+func _on_fighter_spawned(fighter : Fighter):
+	if not target_a:
+		target_a = fighter
+	else:
+		target_b = fighter

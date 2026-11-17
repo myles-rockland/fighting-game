@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="fighting-game"
-run/main_scene="uid://esgkmbgi5jif"
+run/main_scene="uid://b3suuwhyr88qe"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GlobalEvents="*uid://ec5tenmucnuu"
 AudioManager="*uid://bptnydtmksvqr"
+GameConfig="*uid://cvwl0xdu1h4eo"
 
 [display]
 

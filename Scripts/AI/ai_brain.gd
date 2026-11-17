@@ -56,6 +56,9 @@ func decide_inputs() -> Dictionary[String, bool]:
 	if _against_level_bounds():
 		fear = 0
 	
+	if opponent_distance <= min_approach_distance:
+		inputs[flee_input_key] = true
+	
 	# If we are jumping, flee
 	if fighter.state_machine.is_current_state("Jumping"):
 		inputs[flee_input_key] = true

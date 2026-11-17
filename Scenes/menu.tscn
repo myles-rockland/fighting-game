@@ -114,6 +114,25 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
 text = "Player vs Player"
 
+[node name="PlayerVSAIButton" type="Button" parent="CanvasLayer" unique_id=1282391625]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = 67.0
+offset_right = 161.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
+text = "Player vs CPU"
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1469007003]
 transform = Transform3D(0.92077315, 0, -0.39009854, 0, 1, 0, 0.39009854, 0, 0.92077315, -0.92048806, 1.5064595, 1.7605548)
 fov = 45.0
@@ -455,6 +474,7 @@ volume_db = -15.0
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/PlayerVSPlayerButton" to="." method="_on_player_vs_player_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PlayerVSAIButton" to="." method="_on_player_vs_ai_button_pressed"]
 
 [editable path="Male_Ranger"]
 [editable path="Male_Ranger3"]

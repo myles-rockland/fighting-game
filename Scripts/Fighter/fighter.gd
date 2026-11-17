@@ -32,6 +32,12 @@ func _ready():
 		
 	GlobalEvents.game_state_changed.connect(_on_game_state_changed)
 	
+	_intialise.call_deferred()
+	
+func _intialise():
+	GlobalEvents.fighter_spawned.emit(self)
+	_update_facing_direction()
+	
 func _physics_process(delta: float):
 	if not can_control:
 		return
