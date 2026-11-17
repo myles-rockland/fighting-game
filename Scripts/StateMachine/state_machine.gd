@@ -36,8 +36,6 @@ func change_state(state_name : String):
 		
 	current_state = states[state_name]
 	current_state.enter()
-	
-	print("New State: ", state_name)
 
 func update(delta : float):
 	if not current_state:

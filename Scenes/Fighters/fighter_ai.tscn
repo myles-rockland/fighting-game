@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cw1ulbpj6wfjf"]
+
+[ext_resource type="PackedScene" uid="uid://d1gy73bki3yjm" path="res://Scenes/Fighters/fighter.tscn" id="1_h58e1"]
+[ext_resource type="Script" uid="uid://bbpwnvtutitm4" path="res://Scripts/AI/ai_brain.gd" id="2_l6g7g"]
+[ext_resource type="Script" uid="uid://ctp7yvyeo4vrh" path="res://Scripts/AI/ai_detector.gd" id="3_itn1j"]
+[ext_resource type="Script" uid="uid://dlfnb7wk5mas0" path="res://Scripts/AI/ai_input_handler.gd" id="4_wra41"]
+
+[node name="FighterAI" unique_id=607319556 node_paths=PackedStringArray("input_handler") instance=ExtResource("1_h58e1")]
+input_handler = NodePath("AIInputHandler")
+
+[node name="GeneralSkeleton" parent="Male_Ranger/Armature" parent_id_path=PackedInt32Array(1571612708, 1171658553) index="0" unique_id=982620729]
+bones/1/position = Vector3(-0.0011907422, 0.9044478, -0.09064851)
+bones/1/rotation = Quaternion(-0.038223255, -0.11592852, -0.004464609, 0.99251187)
+bones/3/rotation = Quaternion(0.099882536, 0.00011457142, 0.0002499099, 0.9949993)
+bones/4/rotation = Quaternion(0.099883, 0.000326644, 0.00024313302, 0.9949992)
+bones/5/rotation = Quaternion(-0.09988287, -0.00022094257, -0.0002571753, 0.9949992)
+bones/6/rotation = Quaternion(0.06745563, 0.095772535, 0.0072890487, 0.99308825)
+bones/7/rotation = Quaternion(0.49437883, 0.5242544, 0.5285188, -0.44879276)
+bones/8/rotation = Quaternion(-0.040533256, 0.8211024, -0.5692566, 0.009750399)
+bones/9/rotation = Quaternion(0.18508133, -0.66535574, 0.18614262, 0.69885457)
+bones/31/rotation = Quaternion(0.5464848, -0.47295198, -0.4760291, -0.501066)
+bones/32/rotation = Quaternion(0.069060706, 0.82131773, -0.56619245, -0.009697843)
+bones/33/rotation = Quaternion(0.2886954, 0.554631, -0.2096186, 0.75173104)
+bones/55/rotation = Quaternion(-0.00082326087, 0.13989215, 0.9831461, -0.11769999)
+bones/56/rotation = Quaternion(0.018369846, 0.9792571, -0.16833453, 0.111273035)
+bones/57/rotation = Quaternion(-0.09750245, 0.7230083, -0.6838672, 0.008829045)
+bones/60/rotation = Quaternion(0.00088237977, -0.08718761, 0.98817194, 0.12614982)
+bones/61/rotation = Quaternion(-0.043347895, 0.9257872, -0.11937808, -0.35607287)
+bones/62/rotation = Quaternion(0.16953498, 0.6297184, -0.7580962, 0.0017005056)
+
+[node name="LeftHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="12" unique_id=1744838263]
+transform = Transform3D(0.47427517, 0.024575219, -0.8800335, -0.3903814, -0.8900914, -0.23524378, -0.78909147, 0.45511907, -0.41255465, 0.31466034, 0.95944643, 0.010870457)
+
+[node name="RightHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="13" unique_id=1894716002]
+transform = Transform3D(0.06335187, -0.13685843, 0.98856276, 0.4914323, -0.85785615, -0.1502566, 0.86860865, 0.4953308, 0.012909746, -0.28043056, 0.98125523, -0.17150593)
+
+[node name="Chest" parent="Male_Ranger/Armature/GeneralSkeleton" index="14" unique_id=1901246565]
+transform = Transform3D(0.97313124, -0.028763019, -0.22844732, 0.0005049471, 0.99243104, -0.122802645, 0.23025037, 0.11938774, 0.96578014, -0.00791375, 1.1360774, -0.062261906)
+
+[node name="Head" parent="Male_Ranger/Armature/GeneralSkeleton" index="15" unique_id=435293510]
+transform = Transform3D(0.9976276, -0.06090443, -0.032086745, 0.050944347, 0.9666686, -0.2509112, 0.046298772, 0.24868134, 0.9674782, -0.025192019, 1.5576417, 0.009335548)
+
+[node name="AIBrain" type="Node" parent="." index="12" unique_id=305785966 node_paths=PackedStringArray("fighter", "detector")]
+script = ExtResource("2_l6g7g")
+fighter = NodePath("..")
+detector = NodePath("../AIDetector")
+skill = 0.7
+bravery = 0.5
+metadata/_custom_type_script = "uid://bbpwnvtutitm4"
+
+[node name="AIDetector" type="Node" parent="." index="13" unique_id=1428245004 node_paths=PackedStringArray("fighter")]
+script = ExtResource("3_itn1j")
+fighter = NodePath("..")
+min_response_time = 0.1
+max_response_time = 0.2
+metadata/_custom_type_script = "uid://ctp7yvyeo4vrh"
+
+[node name="AIInputHandler" type="Node" parent="." index="14" unique_id=1766677684 node_paths=PackedStringArray("brain", "fighter")]
+script = ExtResource("4_wra41")
+brain = NodePath("../AIBrain")
+fighter = NodePath("..")
+metadata/_custom_type_script = "uid://dlfnb7wk5mas0"
+
+[editable path="Male_Ranger"]
