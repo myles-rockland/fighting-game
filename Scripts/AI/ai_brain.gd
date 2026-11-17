@@ -9,8 +9,10 @@ enum AttackPhase
 }
 
 @export var fighter : Fighter 
-@export var min_approach_distance : float = 0.4
 @export var detector : AIDetector
+@export var stamina_controller : StaminaController
+@export var min_approach_distance : float = 0.4
+@export var min_advantage_stamina : float = 10
 
 @export var light_attack_range : float = 1.0
 @export var heavy_attack_range : float = 1.2
@@ -128,9 +130,19 @@ func _dodge_attack() -> int:
 	if not skill_check:
 		return 0
 		
-	var dodge_type : int = randi_range(1, 2)
+	var can_jump : bool = stamina_controller.current_stamina <= stamina_controller.data.jump_cost
+	var can_dash : bool = stamina_controller.current_stamina <= stamina_controller.data.dash_cost
 	
-	return dodge_type
+	if not can_jump and not can_dash:
+		return 0
+		
+	if can_jump and not can_dash:
+		return 1
+		
+	if can_dash and not can_jump:
+		return 2
+		
+	return randi_range(1, 2)
 
 func _on_fighter_damaged(damaged_fighter : Fighter):
 	if damaged_fighter != fighter:
@@ -141,7 +153,9 @@ func _on_fighter_damaged(damaged_fighter : Fighter):
 
 func _has_advantage() -> bool:
 	var health_difference = (fighter.current_health - opponent.current_health) / fighter.max_health
-	if fear > bravery or health_difference < -bravery:
+	var has_enough_stamina : bool = stamina_controller.current_stamina >= min_advantage_stamina
+	
+	if fear > bravery or health_difference < -bravery or not has_enough_stamina:
 		return false
 	else:
 		return true
@@ -149,17 +163,26 @@ func _has_advantage() -> bool:
 func _decide_attack() -> int:
 	if opponent_distance > heavy_attack_range:
 		return 0
-		
+	
+	var can_light_attack : bool = stamina_controller.current_stamina < stamina_controller.data.light_attack_cost
+	var can_heavy_attack : bool = stamina_controller.current_stamina < stamina_controller.data.heavy_attack_cost
+	
 	var do_perfect_attack : bool = randf() < skill
 	
 	if do_perfect_attack:
 		if opponent_distance > light_attack_range and opponent_distance <= heavy_attack_range:
-			return 2
-		else:
+			if can_heavy_attack:
+				return 2
+		elif can_light_attack:
 			return 1
 			
 	if randf() < skill:
-		return randi_range(1, 2)
+		if can_light_attack and not can_heavy_attack:
+			return 1
+		elif can_heavy_attack and not can_light_attack:
+			return 2
+		else:
+			return randi_range(1, 2)
 		
 	return 0
 	
