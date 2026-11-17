@@ -15,6 +15,9 @@ enum AttackPhase
 @export var light_attack_range : float = 1.0
 @export var heavy_attack_range : float = 1.2
 
+@export var min_x_bounds : float = -4
+@export var max_x_bounds : float = 4
+
 @export_category("Personality")
 @export_range(0.0, 1.0) var skill : float
 @export_range(0.0, 1.0) var bravery : float
@@ -47,6 +50,9 @@ func decide_inputs() -> Dictionary[String, bool]:
 	var inputs : Dictionary[String, bool] = {}
 	
 	opponent_distance = fighter.global_position.distance_to(opponent.global_position)
+	
+	if _against_level_bounds():
+		fear = 0
 	
 	# If we are jumping, flee
 	if fighter.state_machine.is_current_state("Jumping"):
@@ -157,3 +163,6 @@ func _decide_attack() -> int:
 		
 	return 0
 	
+func _against_level_bounds() -> bool:
+	var x = fighter.global_position.x
+	return x < min_x_bounds or x > max_x_bounds
