@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalEvents="*uid://ec5tenmucnuu"
 AudioManager="*uid://bptnydtmksvqr"
 GameConfig="*uid://cvwl0xdu1h4eo"
+NetworkManager="*uid://xhm5a0wafjgx"
 
 [display]
 

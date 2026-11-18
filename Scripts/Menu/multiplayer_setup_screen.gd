@@ -6,12 +6,16 @@ extends MenuScreen
 
 @onready var menu : Menu = $".."
 
+var ip : String:
+	get: return ip_input.text
+var port : int:
+	get: return int(port_input.text)
 
 func _on_back_button_pressed() -> void:
 	menu.set_screen($"../MainMenuScreen")
 
 func _on_create_game_button_pressed() -> void:
-	print("Create server")
+	NetworkManager.start_host(port)
 
 func _on_join_game_button_pressed() -> void:
-	print("Join server")
+	NetworkManager.start_client(ip, port)

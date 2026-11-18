@@ -14,6 +14,9 @@ func _ready():
 		child.visible = false
 		
 	set_screen(start_screen)
+	
+	NetworkManager.connected_to_server.connect(_on_connected_to_server)
+	NetworkManager.server_disconnected.connect(_on_server_disconnected)
 		
 func set_screen(screen : MenuScreen):
 	if current_screen:
@@ -23,3 +26,9 @@ func set_screen(screen : MenuScreen):
 	current_screen = screen
 	current_screen.visible = true
 	current_screen.open()
+
+func _on_connected_to_server():
+	set_screen($MultiplayerLobbyScreen)
+	
+func _on_server_disconnected():
+	set_screen($MainMenuScreen)
