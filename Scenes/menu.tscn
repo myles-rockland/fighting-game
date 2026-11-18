@@ -4,8 +4,11 @@
 [ext_resource type="Script" uid="uid://cgiehurs6dw6f" path="res://Scripts/Menu/menu.gd" id="1_rfqti"]
 [ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="2_xhh6f"]
 [ext_resource type="PackedScene" uid="uid://d6jbw6wmibtg" path="res://Models/Outfits/Male_Ranger.gltf" id="3_q3rjx"]
+[ext_resource type="Script" uid="uid://c8uluemvdnmvj" path="res://Scripts/Menu/main_menu_screen.gd" id="4_5ti5v"]
 [ext_resource type="ArrayMesh" uid="uid://dm85wfnj78bd0" path="res://Models/FighterHead/Fighter_0_Head_Sphere_005_Retopology_004.res" id="4_6swd7"]
+[ext_resource type="Script" uid="uid://diy4wkqrubef0" path="res://Scripts/Menu/multiplayer_setup_screen.gd" id="5_1by5w"]
 [ext_resource type="ArrayMesh" uid="uid://cec0rgv8m4agg" path="res://Models/FighterHead/Fighter_0_Head_Face_001.res" id="5_7qvly"]
+[ext_resource type="Script" uid="uid://cj31wsyjwpchd" path="res://Scripts/Menu/multiplayer_lobby_screen.gd" id="6_kmwmt"]
 [ext_resource type="ArrayMesh" uid="uid://cl3k1a1875ioj" path="res://Models/FighterHead/Fighter_0_Head_Face.res" id="6_rfqti"]
 [ext_resource type="Script" uid="uid://b74q6ifxm4hti" path="res://Scripts/Hitboxes/hit_sender.gd" id="7_g8i7c"]
 [ext_resource type="Script" uid="uid://b04w020465vjn" path="res://Scripts/Hitboxes/hit_receiver.gd" id="8_23t3j"]
@@ -63,6 +66,49 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8i7c"]
+bg_color = Color(0.32156864, 0.09019608, 0.0627451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 0.67058825, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23t3j"]
+bg_color = Color(0.1882353, 0.039215688, 0.019607844, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 0.67058825, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ph6h"]
+bg_color = Color(0.20784314, 0.039215688, 0.03137255, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 0.67058825, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_gvo7x"]
+font = ExtResource("2_xhh6f")
+font_size = 50
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_8ph6h"]
 radius = 0.2
 
@@ -78,11 +124,12 @@ _data = {
 }
 
 [node name="Menu" type="Node3D" unique_id=1287418912]
-script = ExtResource("1_rfqti")
 
 [node name="Environment" parent="." unique_id=386558300 instance=ExtResource("1_1rerr")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=121250503]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=121250503 node_paths=PackedStringArray("start_screen")]
+script = ExtResource("1_rfqti")
+start_screen = NodePath("MainMenuScreen")
 
 [node name="Title" type="Label" parent="CanvasLayer" unique_id=1597713188]
 anchors_preset = 10
@@ -95,16 +142,27 @@ label_settings = SubResource("LabelSettings_1rerr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerVSPlayerButton" type="Button" parent="CanvasLayer" unique_id=1191749729]
+[node name="MainMenuScreen" type="Control" parent="CanvasLayer" unique_id=1693747117]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_5ti5v")
+
+[node name="PlayerVSPlayerButton" type="Button" parent="CanvasLayer/MainMenuScreen" unique_id=1191749729]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -161.0
-offset_top = -44.0
+offset_top = -85.0
 offset_right = 161.0
-offset_bottom = 44.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_xhh6f")
@@ -114,16 +172,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
 text = "Player vs Player"
 
-[node name="PlayerVSAIButton" type="Button" parent="CanvasLayer" unique_id=1282391625]
+[node name="PlayerVSAIButton" type="Button" parent="CanvasLayer/MainMenuScreen" unique_id=1282391625]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -161.0
-offset_top = 67.0
+offset_top = 26.0
 offset_right = 161.0
-offset_bottom = 155.0
+offset_bottom = 114.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_xhh6f")
@@ -132,6 +191,204 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
 text = "Player vs CPU"
+
+[node name="MultiplayerButton" type="Button" parent="CanvasLayer/MainMenuScreen" unique_id=952050283]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = 139.0
+offset_right = 161.0
+offset_bottom = 227.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
+text = "Multiplayer"
+
+[node name="MultiplayerSetupScreen" type="Control" parent="CanvasLayer" unique_id=1420178146]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1by5w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MultiplayerSetupScreen" unique_id=916307559]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.75
+offset_top = -50.5
+offset_right = 191.75
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UsernameInput" type="LineEdit" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=213865726]
+layout_mode = 2
+placeholder_text = "Username..."
+
+[node name="IPInput" type="LineEdit" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=1332552847]
+layout_mode = 2
+placeholder_text = "IP Address..."
+
+[node name="PortInput" type="LineEdit" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=969928762]
+layout_mode = 2
+placeholder_text = "Port..."
+
+[node name="CreateGameButton" type="Button" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=1544175236]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_g8i7c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_23t3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ph6h")
+text = "Create Game"
+
+[node name="JoinGameButton" type="Button" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=384800619]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_g8i7c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_23t3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ph6h")
+text = "Join Game"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/MultiplayerSetupScreen" unique_id=2067598421]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.375
+offset_top = -174.0
+offset_right = 72.375
+offset_bottom = -102.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
+text = "Back"
+
+[node name="MultiplayerLobbyScreen" type="Control" parent="CanvasLayer" unique_id=284254006]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_kmwmt")
+
+[node name="PlayerHost" type="Label" parent="CanvasLayer/MultiplayerLobbyScreen" unique_id=1553447571]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -126.0
+offset_right = 136.5
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player 0 Name"
+label_settings = SubResource("LabelSettings_gvo7x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="vs" type="Label" parent="CanvasLayer/MultiplayerLobbyScreen" unique_id=692045558]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -62.0
+offset_right = 136.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "vs"
+label_settings = SubResource("LabelSettings_gvo7x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerClient" type="Label" parent="CanvasLayer/MultiplayerLobbyScreen" unique_id=652120540]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -1.0
+offset_right = 136.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player 1 Name"
+label_settings = SubResource("LabelSettings_gvo7x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/MultiplayerLobbyScreen" unique_id=299822979]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -112.0
+offset_right = 101.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
+text = "Leave"
+
+[node name="StartGameButton" type="Button" parent="CanvasLayer/MultiplayerLobbyScreen" unique_id=686088417]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.0
+offset_top = -202.0
+offset_right = 133.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_xhh6f")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cayip")
+text = "Start Game"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1469007003]
 transform = Transform3D(0.92077315, 0, -0.39009854, 0, 1, 0, 0.39009854, 0, 0.92077315, -0.92048806, 1.5064595, 1.7605548)
@@ -473,8 +730,14 @@ stream = ExtResource("12_g8i7c")
 volume_db = -15.0
 autoplay = true
 
-[connection signal="pressed" from="CanvasLayer/PlayerVSPlayerButton" to="." method="_on_player_vs_player_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PlayerVSAIButton" to="." method="_on_player_vs_ai_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenuScreen/PlayerVSPlayerButton" to="CanvasLayer/MainMenuScreen" method="_on_player_vs_player_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenuScreen/PlayerVSAIButton" to="CanvasLayer/MainMenuScreen" method="_on_player_vsai_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenuScreen/MultiplayerButton" to="CanvasLayer/MainMenuScreen" method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerSetupScreen/VBoxContainer/CreateGameButton" to="CanvasLayer/MultiplayerSetupScreen" method="_on_create_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerSetupScreen/VBoxContainer/JoinGameButton" to="CanvasLayer/MultiplayerSetupScreen" method="_on_join_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerSetupScreen/BackButton" to="CanvasLayer/MultiplayerSetupScreen" method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerLobbyScreen/LeaveButton" to="CanvasLayer/MultiplayerLobbyScreen" method="_on_leave_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerLobbyScreen/StartGameButton" to="CanvasLayer/MultiplayerLobbyScreen" method="_on_start_game_button_pressed"]
 
 [editable path="Male_Ranger"]
 [editable path="Male_Ranger3"]
