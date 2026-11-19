@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bxx08scfu6nvs" path="res://Fonts/MetalMania-Regular.ttf" id="2_ewbju"]
 [ext_resource type="AudioStream" uid="uid://bt0rcl84vpl7h" path="res://Audio/Music/BattleMusic.mp3" id="3_i6g32"]
 [ext_resource type="AudioStream" uid="uid://bancmvruhchwo" path="res://Audio/Voice/3.ogg" id="3_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://3vuec3r7gtfh" path="res://Scenes/Fighters/fighter_networked.tscn" id="4_1phco"]
 [ext_resource type="AudioStream" uid="uid://dqu5phq2hddi2" path="res://Audio/Voice/2.ogg" id="4_o5yvi"]
 [ext_resource type="AudioStream" uid="uid://sgu7untx5tkb" path="res://Audio/Voice/Winner.ogg" id="4_rfjv2"]
 [ext_resource type="AudioStream" uid="uid://crr0b25eu8lps" path="res://Audio/Voice/Loser.ogg" id="5_1phco"]
@@ -177,9 +178,14 @@ point_count = 2
 script = ExtResource("1_nnt18")
 player_fighter_scene = ExtResource("1_ebmjs")
 ai_fighter_scene = ExtResource("10_o5yvi")
+networked_fighter_scene = ExtResource("4_1phco")
 winner_sound = ExtResource("4_rfjv2")
 loser_sound = ExtResource("5_1phco")
 metadata/_custom_type_script = "uid://bh38h7f8wpbp1"
+
+[node name="FighterMultiplayerSpawner" type="MultiplayerSpawner" parent="GameManager" unique_id=1445038263]
+_spawnable_scenes = PackedStringArray("uid://3vuec3r7gtfh")
+spawn_path = NodePath(".")
 
 [node name="CountdownCanvasLayer" type="CanvasLayer" parent="GameManager" unique_id=1618181335]
 

@@ -23,6 +23,13 @@ var is_server : bool:
 var peer_id : int:
 	get: return multiplayer.get_unique_id()
 
+var is_connected : bool:
+	get: return (
+		multiplayer.multiplayer_peer != null 
+		and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer 
+		and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+	)
+
 func start_host(port : int):
 	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_server(port, 2)

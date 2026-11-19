@@ -8,9 +8,11 @@ var game_scene : PackedScene = preload("res://Scenes/game.tscn")
 var current_scene : Node
 var loading : bool = false
 
+@rpc("authority", "call_local", "reliable")
 func load_menu():
 	_load_scene(menu_scene)
 	
+@rpc("authority", "call_local", "reliable")
 func load_game():
 	_load_scene(game_scene)
 

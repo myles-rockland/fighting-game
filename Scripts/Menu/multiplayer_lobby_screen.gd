@@ -29,4 +29,4 @@ func _on_leave_button_pressed() -> void:
 
 func _on_start_game_button_pressed() -> void:
 	GameConfig.game_mode = GameConfig.GameMode.ONLINE_MULTIPLAYER
-	SceneManager.load_game()
+	SceneManager.load_game.rpc() # We're not calling the function as we normally would. We're calling it as an RPC, so that other computers do things!

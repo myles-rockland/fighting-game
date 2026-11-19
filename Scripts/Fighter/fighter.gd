@@ -24,12 +24,10 @@ var can_control : bool = false
 @export var take_damage_sfx : AudioStream
 
 func _ready():
-	for child in find_children("*", "HitReceiver", true, false):
-		child.initialise(self)
+	if NetworkManager.is_connected and not NetworkManager.is_server:
+		set_physics_process(false)
+		return
 	
-	for child in find_children("*", "HitSender", true, false):
-		child.initialise(self)
-		
 	GlobalEvents.game_state_changed.connect(_on_game_state_changed)
 	
 	_intialise.call_deferred()
@@ -37,6 +35,12 @@ func _ready():
 func _intialise():
 	GlobalEvents.fighter_spawned.emit(self)
 	_update_facing_direction()
+	
+	for child in find_children("*", "HitReceiver", true, false):
+		child.initialise(self)
+	
+	for child in find_children("*", "HitSender", true, false):
+		child.initialise(self)
 	
 func _physics_process(delta: float):
 	if not can_control:
