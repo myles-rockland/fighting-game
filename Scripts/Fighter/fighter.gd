@@ -23,6 +23,10 @@ var can_control : bool = false
 
 @export var take_damage_sfx : AudioStream
 
+func _enter_tree() -> void:
+	if NetworkManager.is_connected:
+		$InputSync.set_multiplayer_authority(name.to_int())
+
 func _ready():
 	if NetworkManager.is_connected and not NetworkManager.is_server:
 		set_physics_process(false)

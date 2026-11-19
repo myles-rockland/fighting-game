@@ -1,39 +1,80 @@
 [gd_scene format=3 uid="uid://3vuec3r7gtfh"]
 
 [ext_resource type="PackedScene" uid="uid://d1gy73bki3yjm" path="res://Scenes/Fighters/fighter.tscn" id="1_s1xwm"]
+[ext_resource type="Script" uid="uid://0suxn4lvriki" path="res://Scripts/Inputs/networked_player_input_handler.gd" id="2_eext2"]
 
-[node name="Fighter" unique_id=607319556 instance=ExtResource("1_s1xwm")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s1xwm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eext2"]
+properties/0/path = NodePath("InputSync/NetworkedPlayerInputHandler:move_left")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSync/NetworkedPlayerInputHandler:move_right")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("InputSync/NetworkedPlayerInputHandler:jump")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("InputSync/NetworkedPlayerInputHandler:dash")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("InputSync/NetworkedPlayerInputHandler:light_attack")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("InputSync/NetworkedPlayerInputHandler:heavy_attack")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[node name="FighterNetworked" unique_id=607319556 node_paths=PackedStringArray("input_handler") instance=ExtResource("1_s1xwm")]
+input_handler = NodePath("InputSync/NetworkedPlayerInputHandler")
+
+[node name="FighterSync" type="MultiplayerSynchronizer" parent="." index="0" unique_id=754587901]
+replication_config = SubResource("SceneReplicationConfig_s1xwm")
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="." index="1" unique_id=1190266619]
+replication_config = SubResource("SceneReplicationConfig_eext2")
+
+[node name="NetworkedPlayerInputHandler" type="Node" parent="InputSync" index="0" unique_id=1296843699 node_paths=PackedStringArray("fighter")]
+script = ExtResource("2_eext2")
+fighter = NodePath("../..")
+metadata/_custom_type_script = "uid://0suxn4lvriki"
 
 [node name="GeneralSkeleton" parent="Male_Ranger/Armature" parent_id_path=PackedInt32Array(1571612708, 1171658553) index="0" unique_id=982620729]
-bones/1/position = Vector3(0.0032549568, 0.9003407, -0.09129366)
-bones/1/rotation = Quaternion(-0.0346808, -0.11594373, -0.0040508364, 0.992642)
-bones/3/rotation = Quaternion(0.0991327, 0.00011440291, 0.00025030388, 0.9950742)
-bones/4/rotation = Quaternion(0.099132776, 0.00032599873, 0.00024354577, 0.9950742)
-bones/5/rotation = Quaternion(-0.09913276, -0.00022054573, -0.00025747993, 0.9950742)
-bones/6/rotation = Quaternion(0.04919254, 0.095587455, 0.009413256, 0.99416023)
-bones/7/rotation = Quaternion(0.5018403, 0.5216133, 0.5307836, -0.4408455)
-bones/8/rotation = Quaternion(-0.016967291, 0.82499456, -0.56480306, 0.009674059)
-bones/9/rotation = Quaternion(0.16711377, -0.68383497, 0.17675585, 0.6878954)
-bones/31/rotation = Quaternion(0.5538088, -0.47121873, -0.47742444, -0.4932694)
-bones/32/rotation = Quaternion(0.059405856, 0.8197217, -0.56958944, -0.009756057)
-bones/33/rotation = Quaternion(0.28707436, 0.5600418, -0.21177557, 0.74772495)
-bones/55/rotation = Quaternion(-0.00083004363, 0.15922531, 0.98008394, -0.11866802)
-bones/56/rotation = Quaternion(0.021246996, 0.974415, -0.19484444, 0.10999796)
-bones/57/rotation = Quaternion(-0.09568371, 0.7147562, -0.6927671, 0.0064870426)
-bones/60/rotation = Quaternion(0.00096950575, -0.071395956, 0.98776966, 0.13861002)
-bones/61/rotation = Quaternion(-0.052938655, 0.92286456, -0.14522082, -0.35274556)
-bones/62/rotation = Quaternion(0.17086934, 0.6208311, -0.76509273, 0.0023401831)
+bones/1/position = Vector3(0.0015065625, 0.8996132, -0.09128354)
+bones/1/rotation = Quaternion(-0.034200806, -0.115945674, -0.00399477, 0.9926586)
+bones/3/rotation = Quaternion(0.09494242, 0.00011329684, 0.00025256487, 0.99548274)
+bones/4/rotation = Quaternion(0.09495072, 0.00032259198, 0.0002458912, 0.9954819)
+bones/5/rotation = Quaternion(-0.09493267, -0.00021827884, -0.0002592262, 0.99548376)
+bones/6/rotation = Quaternion(0.045951035, 0.09547217, 0.01052652, 0.9943153)
+bones/7/rotation = Quaternion(0.5028301, 0.52125615, 0.5310803, -0.43978158)
+bones/8/rotation = Quaternion(-0.012454845, 0.8257625, -0.5637978, 0.00965695)
+bones/9/rotation = Quaternion(0.16132095, -0.68791443, 0.17245674, 0.6863002)
+bones/31/rotation = Quaternion(0.55477965, -0.4709836, -0.47760606, -0.49222618)
+bones/32/rotation = Quaternion(0.061010927, 0.819986, -0.56903934, -0.009746683)
+bones/33/rotation = Quaternion(0.28730065, 0.5592913, -0.21147637, 0.7482843)
+bones/55/rotation = Quaternion(-0.0008394664, 0.16059649, 0.9796958, -0.120018005)
+bones/56/rotation = Quaternion(0.021497263, 0.97390705, -0.19752131, 0.109674)
+bones/57/rotation = Quaternion(-0.09653863, 0.7144277, -0.6929811, 0.0071078027)
+bones/60/rotation = Quaternion(0.00097574294, -0.06966719, 0.9877678, 0.13950036)
+bones/61/rotation = Quaternion(-0.05487883, 0.9221593, -0.15046182, -0.35209644)
+bones/62/rotation = Quaternion(0.17046072, 0.61876506, -0.7668532, 0.003048398)
 
 [node name="LeftHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="12" unique_id=1744838263]
-transform = Transform3D(0.45770386, 0.028397672, -0.88865125, -0.4001726, -0.8859505, -0.23442224, -0.793958, 0.4629097, -0.39413905, 0.31293124, 0.94717884, 0.023000002)
+transform = Transform3D(0.45322332, 0.029839613, -0.8908974, -0.40977046, -0.8806049, -0.23795594, -0.79162914, 0.47291058, -0.38688335, 0.31040224, 0.9450295, 0.02796901)
 
 [node name="RightHand" parent="Male_Ranger/Armature/GeneralSkeleton" index="13" unique_id=1894716002]
-transform = Transform3D(0.051438913, -0.12738673, 0.99051845, 0.5180577, -0.84454215, -0.1355168, 0.85379755, 0.5201167, 0.022551294, -0.26911825, 0.97024333, -0.15694511)
+transform = Transform3D(0.05158241, -0.12964854, 0.99021727, 0.5305127, -0.8365067, -0.13715883, 0.84610623, 0.5323978, 0.025630984, -0.27085876, 0.96815807, -0.15357426)
 
 [node name="Chest" parent="Male_Ranger/Armature/GeneralSkeleton" index="14" unique_id=1901246565]
-transform = Transform3D(0.97313046, -0.030051436, -0.22828497, 0.0005071091, 0.99172384, -0.12838882, 0.23025389, 0.124823324, 0.9650919, -0.0038489113, 1.1317562, -0.06129895)
+transform = Transform3D(0.9731303, -0.02835289, -0.22850285, 0.0005108797, 0.99265313, -0.12099379, 0.23025458, 0.11762599, 0.9659954, -0.005648882, 1.1309987, -0.06107106)
 
 [node name="Head" parent="Male_Ranger/Armature/GeneralSkeleton" index="15" unique_id=435293510]
-transform = Transform3D(0.99751496, -0.061675362, -0.034059435, 0.052688584, 0.97395456, -0.22053674, 0.04677397, 0.21819416, 0.9747839, -0.02160037, 1.5529319, 0.012293011)
+transform = Transform3D(0.9975029, -0.0613823, -0.03492926, 0.052870367, 0.97692746, -0.20692378, 0.046824783, 0.20456037, 0.9777335, -0.022266468, 1.5528868, 0.0077139772)
 
 [editable path="Male_Ranger"]
