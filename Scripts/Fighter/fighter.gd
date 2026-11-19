@@ -32,13 +32,17 @@ func is_server_fighter() -> bool:
 
 func _ready():
 	if NetworkManager.is_connected and not NetworkManager.is_server:
-		set_physics_process(false)
+		_client_initialise()
 		return
 	
 	GlobalEvents.game_state_changed.connect(_on_game_state_changed)
 	
 	_intialise.call_deferred()
 	
+func _client_initialise():
+	set_physics_process(false)
+	GlobalEvents.fighter_spawned.emit(self)
+
 func _intialise():
 	GlobalEvents.fighter_spawned.emit(self)
 	_update_facing_direction()

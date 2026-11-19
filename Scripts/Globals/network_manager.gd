@@ -49,8 +49,20 @@ func _peer_connected(id : int):
 	player_connected.emit(id)
 	
 func _peer_disconnected(id : int):
-	player_disconnected.emit(id)
+	var player : Node = player_spawner.get_node(str(id))
 	
+	if player:
+		player.queue_free()
+	
+	close_peer()
+	_server_disconnected()
+	
+	player_disconnected.emit(id)
+
+func _delete_all_player_nodes():
+	for child in player_spawner.get_children():
+		child.queue_free()
+
 func start_client(ip : String, port : int):
 	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_client(ip, port)
@@ -72,6 +84,7 @@ func _server_disconnected():
 func close_peer():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
+	_delete_all_player_nodes()
 
 func register_player_node(player : NetworkPlayer):
 	if player.get_multiplayer_authority() == 1:

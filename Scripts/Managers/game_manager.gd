@@ -31,6 +31,7 @@ var current_game_state : GameState
 
 func _ready():
 	GlobalEvents.fighter_defeated.connect(_on_fighter_defeated)
+	NetworkManager.server_disconnected.connect(_on_server_disconnected)
 	
 	if NetworkManager.is_connected:
 		if not NetworkManager.is_server:
@@ -68,6 +69,10 @@ func _begin_countdown_animation():
 func _on_fighter_defeated(fighter : Fighter):
 	_change_game_state(GameState.ENDED)
 	
+	if NetworkManager.is_connected:
+		_networked_end_game.rpc(fighter.is_server_fighter())
+		return
+	
 	end_game_text.visible = true
 	
 	if GameConfig.game_mode == GameConfig.GameMode.PLAYER_VS_PLAYER:
@@ -83,6 +88,19 @@ func _on_fighter_defeated(fighter : Fighter):
 		else:
 			end_game_text.text = "WINNER"
 			AudioManager.play(winner_sound)
+
+@rpc("authority", "call_local", "reliable")
+func _networked_end_game(server_lost : bool):
+	end_game_text.visible = true
+	
+	var did_lose : bool = NetworkManager.is_server and server_lost
+	
+	if did_lose:
+		end_game_text.text = "LOSER"
+		AudioManager.play(loser_sound)
+	else:
+		end_game_text.text = "WINNER"
+		AudioManager.play(winner_sound)
 
 func _setup_fighters():
 	var right_fighter_scene : PackedScene
@@ -136,4 +154,7 @@ func _on_countdown_timer_timeout() -> void:
 
 
 func _on_end_game_timer_timeout() -> void:
+	SceneManager.load_menu.rpc()
+
+func _on_server_disconnected():
 	SceneManager.load_menu()

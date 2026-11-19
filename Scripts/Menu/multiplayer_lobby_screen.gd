@@ -11,6 +11,9 @@ func _process(delta):
 	_update_ui()
 
 func _update_ui():
+	if not NetworkManager.is_connected:
+		return
+	
 	start_game_button.visible = NetworkManager.is_server
 	
 	if NetworkManager.player_host:

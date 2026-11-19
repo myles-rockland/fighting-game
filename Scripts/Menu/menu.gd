@@ -13,7 +13,10 @@ func _ready():
 		screens.append(child)
 		child.visible = false
 		
-	set_screen(start_screen)
+	if NetworkManager.is_connected:
+		set_screen($MultiplayerLobbyScreen)
+	else:
+		set_screen(start_screen)
 	
 	NetworkManager.connected_to_server.connect(_on_connected_to_server)
 	NetworkManager.server_disconnected.connect(_on_server_disconnected)
