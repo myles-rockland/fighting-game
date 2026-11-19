@@ -15,7 +15,9 @@ func _on_back_button_pressed() -> void:
 	menu.set_screen($"../MainMenuScreen")
 
 func _on_create_game_button_pressed() -> void:
+	NetworkManager.local_username = username_input.text
 	NetworkManager.start_host(port)
 
 func _on_join_game_button_pressed() -> void:
+	NetworkManager.local_username = username_input.text
 	NetworkManager.start_client(ip, port)

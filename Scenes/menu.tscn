@@ -242,10 +242,12 @@ placeholder_text = "Username..."
 
 [node name="IPInput" type="LineEdit" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=1332552847]
 layout_mode = 2
+text = "localhost"
 placeholder_text = "IP Address..."
 
 [node name="PortInput" type="LineEdit" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=969928762]
 layout_mode = 2
+text = "1111"
 placeholder_text = "Port..."
 
 [node name="CreateGameButton" type="Button" parent="CanvasLayer/MultiplayerSetupScreen/VBoxContainer" unique_id=1544175236]

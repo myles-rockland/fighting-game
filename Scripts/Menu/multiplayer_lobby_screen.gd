@@ -7,15 +7,26 @@ extends MenuScreen
 
 @onready var start_game_button : Button = $StartGameButton
 
-func open():
+func _process(delta):
 	_update_ui()
 
 func _update_ui():
-	pass
+	start_game_button.visible = NetworkManager.is_server
+	
+	if NetworkManager.player_host:
+		player_host_name.text = NetworkManager.player_host.username
+	else:
+		player_host_name.text = "..."
+		
+	if NetworkManager.player_client:
+		player_client_name.text = NetworkManager.player_client.username
+	else:
+		player_client_name.text = "..."
 
 func _on_leave_button_pressed() -> void:
 	NetworkManager.close_peer()
 	menu.set_screen($"../MainMenuScreen")
 
 func _on_start_game_button_pressed() -> void:
-	print("Start game")
+	GameConfig.game_mode = GameConfig.GameMode.ONLINE_MULTIPLAYER
+	SceneManager.load_game()

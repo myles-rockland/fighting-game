@@ -4,3 +4,7 @@
 
 [node name="Bootstrap" type="Node" unique_id=1103192636]
 script = ExtResource("1_thq22")
+
+[node name="PlayerMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1720404096]
+_spawnable_scenes = PackedStringArray("uid://bqkppx0hs3vyo")
+spawn_path = NodePath(".")

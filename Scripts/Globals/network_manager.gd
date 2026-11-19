@@ -9,6 +9,20 @@ signal connected_to_server
 signal connected_failed
 signal server_disconnected
 
+@onready var player_spawner : MultiplayerSpawner = get_tree().root.get_node("/root/Bootstrap/PlayerMultiplayerSpawner")
+var player_scene : PackedScene = preload("res://Scenes/network_player.tscn")
+
+var player_host : NetworkPlayer
+var player_client : NetworkPlayer
+
+var local_username : String
+
+var is_server : bool:
+	get: return multiplayer.is_server()
+
+var peer_id : int:
+	get: return multiplayer.get_unique_id()
+
 func start_host(port : int):
 	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_server(port, 2)
@@ -21,6 +35,10 @@ func start_host(port : int):
 	_connected_to_server()
 	
 func _peer_connected(id : int):
+	var player : NetworkPlayer = player_scene.instantiate()
+	player.name = str(id)
+	player_spawner.add_child(player)
+	
 	player_connected.emit(id)
 	
 func _peer_disconnected(id : int):
@@ -47,3 +65,9 @@ func _server_disconnected():
 func close_peer():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
+
+func register_player_node(player : NetworkPlayer):
+	if player.get_multiplayer_authority() == 1:
+		player_host = player_client
+	else:
+		player_client = player
