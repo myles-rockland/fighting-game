@@ -13,10 +13,17 @@ extends Panel
 @onready var stamina_controller : StaminaController = $"../../StaminaController"
 
 func _ready():
-	if fighter.player_id == 0:
-		position = player_0_pos.position
-	elif fighter.player_id == 1:
-		position = player_1_pos.position
+	
+	if NetworkManager.is_connected:
+		if fighter.is_server_fighter():
+			position = player_0_pos.position
+		else:
+			position = player_1_pos.position
+	else:
+		if fighter.player_id == 0:
+			position = player_0_pos.position
+		elif fighter.player_id == 1:
+			position = player_1_pos.position
 		
 	# Health bar
 	health_bar.max_value = fighter.max_health

@@ -100,6 +100,13 @@ func take_damage(hit_receiver : HitReceiver, damage_amount : float):
 	else:
 		state_machine.change_state(hit_receiver.hit_state_name)
 		add_force(forward_direction * -10)
+		
+	client_take_damage.rpc(current_health)
+
+@rpc("authority", "call_remote", "reliable")
+func client_take_damage(new_health : float):
+	current_health = new_health
+	GlobalEvents.fighter_damaged.emit(self)
 
 func defeat():
 	is_defeated = true

@@ -17,7 +17,13 @@ func _ready():
 		
 	GlobalEvents.fighter_damaged.connect(_hit_flash)
 	
-	_set_outfit(fighter.player_id)
+	if NetworkManager.is_connected:
+		if fighter.is_server_fighter():
+			_set_outfit(0)
+		else:
+			_set_outfit(1)
+	else:
+		_set_outfit(fighter.player_id)
 
 func _hit_flash(fighter : Fighter):
 	if self.fighter != fighter:

@@ -11,8 +11,19 @@ var can_regen : bool = false
 @onready var regen_timer : Timer = $StaminaRegenTimer
 
 func _ready():
+	GlobalEvents.game_state_changed.connect(_on_game_state_changed)
+	
 	regen_timer.wait_time = data.regen_delay
-	_set_stamina(data.max_stamina)
+	
+	if not NetworkManager.is_connected:
+		_set_stamina(data.max_stamina)
+	
+	if NetworkManager.is_connected and not NetworkManager.is_server:
+		set_physics_process(false)
+
+func _on_game_state_changed(game_state : GameManager.GameState):
+	if game_state == GameManager.GameState.COUNTDOWN and NetworkManager.is_connected:
+		_set_stamina(data.max_stamina)
 
 func _physics_process(delta: float) -> void:
 	if not can_regen:
@@ -23,6 +34,14 @@ func _physics_process(delta: float) -> void:
 
 func _set_stamina(value : float):
 	current_stamina = value
+	stamina_updated.emit(current_stamina)
+	
+	if NetworkManager.is_connected:
+		client_set_stamina.rpc(current_stamina)
+
+@rpc("authority", "call_remote", "reliable")
+func client_set_stamina(new_stamina : float):
+	current_stamina = new_stamina
 	stamina_updated.emit(current_stamina)
 
 func consume_stamina(amount : float):
