@@ -15,6 +15,7 @@ func _update_ui():
 	
 	if NetworkManager.player_host:
 		player_host_name.text = NetworkManager.player_host.username
+		print("Setting player host name text!!")
 	else:
 		player_host_name.text = "..."
 		

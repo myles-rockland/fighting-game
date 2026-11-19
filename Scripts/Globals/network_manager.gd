@@ -75,6 +75,6 @@ func close_peer():
 
 func register_player_node(player : NetworkPlayer):
 	if player.get_multiplayer_authority() == 1:
-		player_host = player_client
+		player_host = player
 	else:
 		player_client = player

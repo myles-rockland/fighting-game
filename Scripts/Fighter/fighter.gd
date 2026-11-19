@@ -27,6 +27,9 @@ func _enter_tree() -> void:
 	if NetworkManager.is_connected:
 		$InputSync.set_multiplayer_authority(name.to_int())
 
+func is_server_fighter() -> bool:
+	return $InputSync.get_multiplayer_authority() == 1
+
 func _ready():
 	if NetworkManager.is_connected and not NetworkManager.is_server:
 		set_physics_process(false)
